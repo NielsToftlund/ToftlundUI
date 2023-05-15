@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using Windows.Services.Store;
 
 namespace ToftlundUI
@@ -50,6 +54,7 @@ namespace ToftlundUI
         static WindowControls()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowControls), new FrameworkPropertyMetadata(typeof(WindowControls)));
+
         }
 
         public Brush OnMouseOverBackground
@@ -89,8 +94,8 @@ namespace ToftlundUI
                 new PropertyMetadata("Title on Window"));
 
 
-        Path? RestoreImage, MaximiseImage;
-        Button? CloseWindowButton, RestoreButton;
+        Path? RestoreImage, MaximiseImage, PinOff, PinOn;
+        Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
         
         public override void OnApplyTemplate()
         {
@@ -103,14 +108,72 @@ namespace ToftlundUI
             RestoreButton!.Loaded += RestoreButton_Loaded;
             RestoreButton!.Click += RestoreButton_Click;
 
+            MinimizeButton = GetTemplateChild("MinimizeButton") as Button;
+            MinimizeButton!.Click += MinimizeButton_Click;
 
-
+            PinWindow = GetTemplateChild("PinWindow") as Button;
+            PinOff = GetTemplateChild("PinOff") as Path;
+            PinOn = GetTemplateChild("PinOn") as Path;
+            PinWindow!.Loaded += PinWindow_Loaded;
+            PinWindow!.Click += PinWindow_Click;
             
+            
+            
+
+        }
+
+
+
+        private void PinWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            PinWindowRefresh();
+        }
+
+        private void PinWindow_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            if (window.Topmost == true)
+            {
+                Window.GetWindow(this).Topmost = false;
+            }
+            else
+            {
+                Window.GetWindow(this).Topmost = true;
+            }
+            PinWindowRefresh();
+        }
+
+        private void PinWindowRefresh()
+        {
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                Window window = Window.GetWindow(this);
+                Debug.WriteLine(window.Topmost);
+                if (window.Topmost == true)
+                {
+                    PinOn!.Visibility = Visibility.Visible;
+                    PinOff!.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    PinOn!.Visibility = Visibility.Collapsed;
+                    PinOff!.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = Window.GetWindow(this);
+            window.WindowState = WindowState.Minimized;
         }
 
         private void RestoreButton_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshMaximizeRestoreButton();
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                RefreshMaximizeRestoreButton();
+            }
         }
 
         private void RestoreButton_Click(object sender, RoutedEventArgs e)
