@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,10 +17,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using Windows.Services.Store;
+using Path = System.Windows.Shapes.Path;
 
 namespace ToftlundUI
 {
@@ -54,9 +60,7 @@ namespace ToftlundUI
         static WindowControls()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowControls), new FrameworkPropertyMetadata(typeof(WindowControls)));
-
         }
-
         public Brush OnMouseOverBackground
         {
             get { return (Brush)GetValue(OnMouseOverBackgroundProperty); }
@@ -93,17 +97,31 @@ namespace ToftlundUI
                 typeof(WindowControls),
                 new PropertyMetadata("Title on Window"));
 
+        public string VPNaddress
+        {
+            get { return (string)GetValue(VPNaddressProperty); }
+            set { SetValue(VPNaddressProperty, value); }
+        }
+        public static readonly DependencyProperty VPNaddressProperty
+            = DependencyProperty.Register(
+                "VPNaddress",
+                typeof(string),
+                typeof(WindowControls),
+                new PropertyMetadata("no-vpn"));
 
-        Path? RestoreImage, MaximiseImage, PinOff, PinOn;
+        Path? RestoreImage, MaximizeImage, PinOff, PinOn, CloudOn, CloudOff, NoNet;
         Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
-        
+        ContentControl? ConnectionIcon;
+
+    //    string? xVPNaddress = VPNaddress;
+
         public override void OnApplyTemplate()
         {
             CloseWindowButton = GetTemplateChild("CloseWindowButton") as Button;
             CloseWindowButton!.Click += CloseWindow_Click;
 
             RestoreImage = GetTemplateChild("RestoreImage") as Path;
-            MaximiseImage = GetTemplateChild("MaximiseImage") as Path;
+            MaximizeImage = GetTemplateChild("MaximizeImage") as Path;
             RestoreButton = GetTemplateChild("restoreButton") as Button;
             RestoreButton!.Loaded += RestoreButton_Loaded;
             RestoreButton!.Click += RestoreButton_Click;
@@ -116,11 +134,129 @@ namespace ToftlundUI
             PinOn = GetTemplateChild("PinOn") as Path;
             PinWindow!.Loaded += PinWindow_Loaded;
             PinWindow!.Click += PinWindow_Click;
-            
-            
-            
 
+            ConnectionIcon = GetTemplateChild("ConnectionIcon") as ContentControl;
+            CloudOn = GetTemplateChild("CloudOn") as Path;
+            CloudOff = GetTemplateChild("CloudOff") as Path;
+            NoNet = GetTemplateChild("NoNet") as Path;
+            ConnectionIcon!.Loaded += ConnectionIcon_Loaded;
+
+            TestIP(VPNaddress);
+           // Debug.WriteLine(VPNaddress);
         }
+
+        private void ConnectionIcon_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                BackgroundWorker worker = new()
+                {
+                    WorkerReportsProgress = true
+                };
+                worker.DoWork += ErUdvendigIpOk_DoWork!;
+                worker.RunWorkerAsync();
+
+                RefreshMaximizeRestoreButton();
+                // start VPN overvågning hvert x minut (afhængig af om VPN er nødvendig eller ej)
+                System.Timers.Timer timer = new(TimeSpan.FromMinutes(5).TotalMilliseconds)
+                {
+                    AutoReset = true
+                };
+                timer.Elapsed += new ElapsedEventHandler(ErUdvendigIpOkTimer!);
+                timer.Start();
+            }
+        }
+
+        private void ErUdvendigIpOkTimer(object sender, ElapsedEventArgs e)
+        {
+            // TestIP(VPNaddress);
+        }
+
+        //private void ErUdvendigIpOk(object sender, RoutedEventArgs e)
+        //{
+        //    TestIP();
+        //}
+
+        void ErUdvendigIpOk_DoWork(object sender, DoWorkEventArgs e)
+        {
+    //        TestIP(VPNaddress);
+        }
+
+        private Task TestIP(string VPNadresse)
+        {
+            if(VPNaddress == "no-vpn")
+            {
+                NoNet!.Visibility = Visibility.Collapsed;
+                CloudOn!.Visibility = Visibility.Collapsed;
+                CloudOff!.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                string UdvendigIP = HentPublicIP().Result.Trim().ToString();
+                Debug.WriteLine(UdvendigIP);
+                if (UdvendigIP == "no-net")
+                {
+                    NoNet!.Visibility = Visibility.Visible;
+                    CloudOn!.Visibility = Visibility.Collapsed;
+                    CloudOff!.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    // int idx = VPNadresse.IndexOf(UdvendigIP);
+                    if (VPNadresse == UdvendigIP)
+                    {
+                        NoNet!.Visibility = Visibility.Collapsed;
+                        CloudOn!.Visibility = Visibility.Visible;
+                        CloudOff!.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        NoNet!.Visibility = Visibility.Collapsed;
+                        CloudOn!.Visibility = Visibility.Collapsed;
+                        CloudOff!.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        private static async Task<string> HentPublicIP()
+        {
+            //using HttpClient client = new();
+            //using HttpResponseMessage response = client.GetAsync("https://ipv4.icanhazip.com/").Result;
+            //using HttpContent content = response.Content;
+            //string result = content.ReadAsStringAsync().Result;
+            string result = "no-net";
+
+            //HttpClient client = new();
+            //var responseBody = string.Empty;
+            //using var client = new HttpClient();
+
+            try
+            {
+                using HttpClient client = new();
+                using HttpResponseMessage response = client.GetAsync("https://ipv4.icanhazip.com/").Result;
+                using HttpContent content = response.Content;
+                result = content.ReadAsStringAsync().Result;
+            }
+            catch
+            {
+                return "no-net";
+            }
+
+            return result;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -196,12 +332,12 @@ namespace ToftlundUI
             Window window = Window.GetWindow(this);
             if (window.WindowState == WindowState.Maximized)
             {
-                this.MaximiseImage!.Visibility = Visibility.Collapsed;
+                this.MaximizeImage!.Visibility = Visibility.Collapsed;
                 this.RestoreImage!.Visibility = Visibility.Visible;
             }
             else
             {
-                this.MaximiseImage!.Visibility = Visibility.Visible;
+                this.MaximizeImage!.Visibility = Visibility.Visible;
                 this.RestoreImage!.Visibility = Visibility.Collapsed;
             }
         }
