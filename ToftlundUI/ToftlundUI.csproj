@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Title>Toflund User Interface Controls</Title>
+    <Copyright>Niels Bjerkstad Toftlund</Copyright>
+    <AssemblyVersion>1.1</AssemblyVersion>
+    <Version>$(AssemblyVersion)</Version>
+    <Description>Custom Controls for different applications</Description>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <SignAssembly>False</SignAssembly>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>

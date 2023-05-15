@@ -1,0 +1,33 @@
+﻿<Window x:Class="StatusBar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StatusBar"
+        xmlns:MyNamespace="clr-namespace:ToftlundUI;assembly=ToftlundUI"
+        mc:Ignorable="d"
+        Title="StatusBar" Height="150" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        
+
+        <MyNamespace:StatusBar Grid.Row="1" x:Name="ccStatus"  
+                               Maximum="100" 
+                               Value="46" 
+                               Minimum="0" 
+                               TextOnStatusBar="Text on the progressbar" 
+                               Foreground="#9C27B0" 
+                               ShowTimeEstimate="True"
+                               ShowProgressNumber ="True"
+                               
+                               />
+        <Button Grid.Row="2" Content="Press to start" Click="TrykHerKlik"  />
+        
+    </Grid>
+</Window>
