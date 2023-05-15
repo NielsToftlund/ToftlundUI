@@ -100,11 +100,17 @@ namespace ToftlundUI
             RestoreImage = GetTemplateChild("RestoreImage") as Path;
             MaximiseImage = GetTemplateChild("MaximiseImage") as Path;
             RestoreButton = GetTemplateChild("restoreButton") as Button;
+            RestoreButton!.Loaded += RestoreButton_Loaded;
             RestoreButton!.Click += RestoreButton_Click;
 
 
 
             
+        }
+
+        private void RestoreButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshMaximizeRestoreButton();
         }
 
         private void RestoreButton_Click(object sender, RoutedEventArgs e)

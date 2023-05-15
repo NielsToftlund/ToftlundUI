@@ -7,7 +7,7 @@
         xmlns:MyNamespace="clr-namespace:ToftlundUI;assembly=ToftlundUI"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="Window Controls" Height="450" Width="800">
+        Title="Window Controls" Height="450" Width="600">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
