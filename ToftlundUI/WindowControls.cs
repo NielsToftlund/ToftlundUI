@@ -85,6 +85,18 @@ namespace ToftlundUI
                 typeof(WindowControls),
                 new PropertyMetadata(new SolidColorBrush(Colors.Red)));
 
+        public bool ToggleWindowOnTop
+        {
+            get { return (bool)GetValue(ToggleWindowOnTopProperty); }
+            set { SetValue(ToggleWindowOnTopProperty, value); }
+        }
+        public static readonly DependencyProperty ToggleWindowOnTopProperty
+            = DependencyProperty.Register(
+                "ToggleWindowOnTop",
+                typeof(bool),
+                typeof(WindowControls),
+                new PropertyMetadata(false));
+
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
@@ -109,6 +121,19 @@ namespace ToftlundUI
                 typeof(WindowControls),
                 new PropertyMetadata("no-vpn"));
 
+        public bool RemoveMaximizeRestore
+        {
+            get { return (bool)GetValue(RemoveMaximizeRestoreProperty); }
+            set { SetValue(RemoveMaximizeRestoreProperty, value); }
+        }
+        public static readonly DependencyProperty RemoveMaximizeRestoreProperty
+            = DependencyProperty.Register(
+                "RemoveMaximizeRestore",
+                typeof(bool),
+                typeof(WindowControls),
+                new PropertyMetadata(false));
+
+
         Path? RestoreImage, MaximizeImage, PinOff, PinOn, CloudOn, CloudOff, NoNet;
         Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
         ContentControl? ConnectionIcon;
@@ -120,29 +145,56 @@ namespace ToftlundUI
             CloseWindowButton = GetTemplateChild("CloseWindowButton") as Button;
             CloseWindowButton!.Click += CloseWindow_Click;
 
-            RestoreImage = GetTemplateChild("RestoreImage") as Path;
-            MaximizeImage = GetTemplateChild("MaximizeImage") as Path;
             RestoreButton = GetTemplateChild("restoreButton") as Button;
-            RestoreButton!.Loaded += RestoreButton_Loaded;
-            RestoreButton!.Click += RestoreButton_Click;
-
             MinimizeButton = GetTemplateChild("MinimizeButton") as Button;
-            MinimizeButton!.Click += MinimizeButton_Click;
+            if (RemoveMaximizeRestore == false)
+            {
+                RestoreImage = GetTemplateChild("RestoreImage") as Path;
+                MaximizeImage = GetTemplateChild("MaximizeImage") as Path;
+                RestoreButton!.Loaded += RestoreButton_Loaded;
+                RestoreButton!.Click += RestoreButton_Click;
+                MinimizeButton!.Click += MinimizeButton_Click;
+            }
+            else
+            {
+                RestoreButton!.Visibility = Visibility.Collapsed;
+                MinimizeButton!.Visibility = Visibility.Collapsed;
+            }
 
-            PinWindow = GetTemplateChild("PinWindow") as Button;
-            PinOff = GetTemplateChild("PinOff") as Path;
-            PinOn = GetTemplateChild("PinOn") as Path;
-            PinWindow!.Loaded += PinWindow_Loaded;
-            PinWindow!.Click += PinWindow_Click;
+            if(ToggleWindowOnTop == true)
+            {
+                PinWindow = GetTemplateChild("PinWindow") as Button;
+                PinOff = GetTemplateChild("PinOff") as Path;
+                PinOn = GetTemplateChild("PinOn") as Path;
+                PinWindow!.Loaded += PinWindow_Loaded;
+                PinWindow!.Click += PinWindow_Click;
+            }
+            else
+            {
+                PinWindow = GetTemplateChild("PinWindow") as Button;
+                PinWindow!.Visibility = Visibility.Collapsed;
+            }
 
             ConnectionIcon = GetTemplateChild("ConnectionIcon") as ContentControl;
-            CloudOn = GetTemplateChild("CloudOn") as Path;
-            CloudOff = GetTemplateChild("CloudOff") as Path;
-            NoNet = GetTemplateChild("NoNet") as Path;
-            ConnectionIcon!.Loaded += ConnectionIcon_Loaded;
+            if (VPNaddress != "no-vpn")
+            {
+                CloudOn = GetTemplateChild("CloudOn") as Path;
+                CloudOff = GetTemplateChild("CloudOff") as Path;
+                NoNet = GetTemplateChild("NoNet") as Path;
+                ConnectionIcon!.Loaded += ConnectionIcon_Loaded;
+                TestIP(VPNaddress);
+            }
+            else
+            {
+                ConnectionIcon!.Visibility = Visibility.Collapsed;
+            }
 
-            TestIP(VPNaddress);
-           // Debug.WriteLine(VPNaddress);
+
+            
+
+
+            
+           
         }
 
         private void ConnectionIcon_Loaded(object sender, RoutedEventArgs e)
@@ -169,17 +221,12 @@ namespace ToftlundUI
 
         private void ErUdvendigIpOkTimer(object sender, ElapsedEventArgs e)
         {
-            // TestIP(VPNaddress);
+            TestIP(VPNaddress);
         }
-
-        //private void ErUdvendigIpOk(object sender, RoutedEventArgs e)
-        //{
-        //    TestIP();
-        //}
 
         void ErUdvendigIpOk_DoWork(object sender, DoWorkEventArgs e)
         {
-    //        TestIP(VPNaddress);
+            TestIP(VPNaddress);
         }
 
         private Task TestIP(string VPNadresse)
