@@ -94,8 +94,8 @@
                 <ControlTemplate TargetType="local:WindowControls">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
@@ -104,8 +104,8 @@
                         </Grid.ColumnDefinitions>
 
 
-                        <Label Grid.Column="0" Content="{TemplateBinding Title}"/>
-
+                        <Label Grid.Column="0" Name="Title" Content="{TemplateBinding Title}" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
+                        <Label Grid.Column="1" Name="EmptySpace" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
                         <!--<Label Grid.Column="2" Content="Connection"/>-->
                         
                         <ContentControl Name="ConnectionIcon" Grid.Column="2" Width="46" Height="32">

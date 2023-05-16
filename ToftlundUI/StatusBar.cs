@@ -129,6 +129,7 @@ namespace ToftlundUI
             StatusProgressBar!.ValueChanged += StatusProgressBar_ValueChanged;
             StatusProgressBar!.Loaded += StatusBar_Loaded;
             StatusProgressBar!.SizeChanged += StatusBar_SizeChanged;
+
         }
 
         private void StatusBar_SizeChanged(object sender, SizeChangedEventArgs e)

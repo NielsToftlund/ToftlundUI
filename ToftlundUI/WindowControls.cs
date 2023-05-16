@@ -137,8 +137,7 @@ namespace ToftlundUI
         Path? RestoreImage, MaximizeImage, PinOff, PinOn, CloudOn, CloudOff, NoNet;
         Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
         ContentControl? ConnectionIcon;
-
-    //    string? xVPNaddress = VPNaddress;
+        Label? TitleBar, EmptySpace;
 
         public override void OnApplyTemplate()
         {
@@ -189,12 +188,29 @@ namespace ToftlundUI
                 ConnectionIcon!.Visibility = Visibility.Collapsed;
             }
 
+            TitleBar = GetTemplateChild("Title") as Label;
+            TitleBar!.MouseDown += TitleBar_MouseDown;
+            TitleBar!.MouseDoubleClick += TitleBar_MouseDoubleClick;
 
+            EmptySpace = GetTemplateChild("EmptySpace") as Label;
+            EmptySpace!.MouseDown += TitleBar_MouseDown;
+            EmptySpace!.MouseDoubleClick += TitleBar_MouseDoubleClick;
             
+        }
 
+        private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            RestoreWindow();
+        }
 
-            
-           
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Input.MouseEventArgs me = e;
+            if (me.LeftButton == MouseButtonState.Pressed)
+            {
+                Window window = Window.GetWindow(this);
+                window.DragMove();
+            }
         }
 
         private void ConnectionIcon_Loaded(object sender, RoutedEventArgs e)
@@ -360,6 +376,11 @@ namespace ToftlundUI
         }
 
         private void RestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            RestoreWindow();
+        }
+
+        private void RestoreWindow()
         {
             Window window = Window.GetWindow(this);
             if (window.WindowState == WindowState.Maximized)
