@@ -16,15 +16,38 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White"  RemoveMaximizeRestore="False" ToggleWindowOnTop="True" VPNaddress="5.103.14.2" />
+        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White"   />
         <!--VPNaddress="5.103.14.2"-->
         <!--ToggleWindowOnTop="False"-->
         <!--RemoveMaximizeRestore="True"-->
+
+        <Label Grid.Row="2">RemoveMaximizeRestore="False" ToggleWindowOnTop="True" VPNaddress="5.103.14.2"</Label>
+        <MyNamespace:WindowControls Grid.Row="3" Title="Window Control" Background="White"  RemoveMaximizeRestore="False" ToggleWindowOnTop="True" VPNaddress="5.103.14.2" />
+
+        <Label Grid.Row="5">RemoveMaximizeRestore="False" ToggleWindowOnTop="True"</Label>
+        <MyNamespace:WindowControls Grid.Row="6" Title="Window Control" Background="White"  RemoveMaximizeRestore="False" ToggleWindowOnTop="True"  />
+
+        <Label Grid.Row="8">RemoveMaximizeRestore="False" </Label>
+        <MyNamespace:WindowControls Grid.Row="9" Title="Window Control" Background="White"  RemoveMaximizeRestore="False"   />
+
+        <Label Grid.Row="11">RemoveMaximizeRestore="True"</Label>
+        <MyNamespace:WindowControls Grid.Row="12" Title="Window Control" Background="White"  RemoveMaximizeRestore="True"   />
+
 
     </Grid>
 </Window>
