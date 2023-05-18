@@ -31,7 +31,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" VPNaddress="5.103.14.2"  />
+        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" ToggleWindowOnTop="True" VPNaddress="5.103.14.2" />
         <!--VPNaddress="5.103.14.2"-->
         <!--ToggleWindowOnTop="False"-->
         <!--RemoveMaximizeRestore="True"-->

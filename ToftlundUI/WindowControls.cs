@@ -245,7 +245,7 @@ namespace ToftlundUI
             TestIP(VPNaddress);
         }
 
-        private Task TestIP(string VPNadresse)
+        private void TestIP(string VPNadresse)
         {
             if(VPNaddress == "no-vpn")
             {
@@ -280,10 +280,10 @@ namespace ToftlundUI
                     }
                 }
             }
-            return Task.CompletedTask;
+         //   return Task.CompletedTask;
         }
 
-        private static async Task<string> HentPublicIP()
+        private static Task<string> HentPublicIP()
         {
             //using HttpClient client = new();
             //using HttpResponseMessage response = client.GetAsync("https://ipv4.icanhazip.com/").Result;
@@ -304,10 +304,10 @@ namespace ToftlundUI
             }
             catch
             {
-                return "no-net";
+                return Task.FromResult ("no-net");
             }
 
-            return result;
+            return Task.FromResult( result);
         }
 
 
