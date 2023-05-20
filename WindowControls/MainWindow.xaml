@@ -24,8 +24,5 @@
 
         <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" RemoveMaximizeRestore="True" ToggleWindowOnTop="True" VPNaddress="192.168.1.1" />
 
-       
-
-
     </Grid>
 </Window>
