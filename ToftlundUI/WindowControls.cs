@@ -111,7 +111,10 @@ namespace ToftlundUI
 
         public string VPNaddress
         {
-            get { return (string)GetValue(VPNaddressProperty); }
+            get {
+                return Application.Current.Dispatcher.Invoke(() => (string)GetValue(VPNaddressProperty));
+                //return (string)GetValue(VPNaddressProperty); 
+            }
             set { SetValue(VPNaddressProperty, value); }
         }
         public static readonly DependencyProperty VPNaddressProperty
@@ -226,7 +229,7 @@ namespace ToftlundUI
 
                 RefreshMaximizeRestoreButton();
                 // start VPN overvågning hvert x minut (afhængig af om VPN er nødvendig eller ej)
-                System.Timers.Timer timer = new(TimeSpan.FromMinutes(5).TotalMilliseconds)
+                System.Timers.Timer timer = new(TimeSpan.FromMinutes(1).TotalMilliseconds)
                 {
                     AutoReset = true
                 };
@@ -247,7 +250,7 @@ namespace ToftlundUI
 
         private void TestIP(string VPNadresse)
         {
-            if(VPNaddress == "no-vpn")
+            if (VPNaddress == "no-vpn")
             {
                 NoNet!.Visibility = Visibility.Collapsed;
                 CloudOn!.Visibility = Visibility.Collapsed;
@@ -259,14 +262,28 @@ namespace ToftlundUI
                 Debug.WriteLine(UdvendigIP);
                 if (UdvendigIP == "no-net")
                 {
-                    NoNet!.Visibility = Visibility.Visible;
-                    CloudOn!.Visibility = Visibility.Collapsed;
-                    CloudOff!.Visibility = Visibility.Collapsed;
+                    SetConnectionIcon("NoNet");
                 }
                 else
                 {
-                    // int idx = VPNadresse.IndexOf(UdvendigIP);
                     if (VPNadresse == UdvendigIP)
+                    {
+                        SetConnectionIcon("VPNon");
+                    }
+                    else
+                    {
+                        SetConnectionIcon("VPNoff");
+                    }
+                }
+            }
+        }
+
+        private void SetConnectionIcon(string IconName)
+        {
+            switch (IconName)
+            {
+                case "VPNon":
+                    if (Application.Current.Dispatcher.CheckAccess())
                     {
                         NoNet!.Visibility = Visibility.Collapsed;
                         CloudOn!.Visibility = Visibility.Visible;
@@ -274,27 +291,56 @@ namespace ToftlundUI
                     }
                     else
                     {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            NoNet!.Visibility = Visibility.Collapsed;
+                            CloudOn!.Visibility = Visibility.Visible;
+                            CloudOff!.Visibility = Visibility.Collapsed;
+                        });
+                    }
+                    break;
+
+                case "VPNoff":
+                    if (Application.Current.Dispatcher.CheckAccess())
+                    {
                         NoNet!.Visibility = Visibility.Collapsed;
                         CloudOn!.Visibility = Visibility.Collapsed;
                         CloudOff!.Visibility = Visibility.Visible;
                     }
-                }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            NoNet!.Visibility = Visibility.Collapsed;
+                            CloudOn!.Visibility = Visibility.Collapsed;
+                            CloudOff!.Visibility = Visibility.Visible;
+                        });
+                    }
+                    break;
+
+                default: // No connection
+                    if (Application.Current.Dispatcher.CheckAccess())
+                    {
+                        NoNet!.Visibility = Visibility.Visible;
+                        CloudOn!.Visibility = Visibility.Collapsed;
+                        CloudOff!.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            NoNet!.Visibility = Visibility.Visible;
+                            CloudOn!.Visibility = Visibility.Collapsed;
+                            CloudOff!.Visibility = Visibility.Collapsed;
+                        });
+                    }
+                    break;
             }
-         //   return Task.CompletedTask;
         }
 
         private static Task<string> HentPublicIP()
         {
-            //using HttpClient client = new();
-            //using HttpResponseMessage response = client.GetAsync("https://ipv4.icanhazip.com/").Result;
-            //using HttpContent content = response.Content;
-            //string result = content.ReadAsStringAsync().Result;
             string result = "no-net";
-
-            //HttpClient client = new();
-            //var responseBody = string.Empty;
-            //using var client = new HttpClient();
-
             try
             {
                 using HttpClient client = new();
@@ -306,7 +352,6 @@ namespace ToftlundUI
             {
                 return Task.FromResult ("no-net");
             }
-
             return Task.FromResult( result);
         }
 

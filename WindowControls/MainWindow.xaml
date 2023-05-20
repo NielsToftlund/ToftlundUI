@@ -19,24 +19,11 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" ToggleWindowOnTop="True" VPNaddress="5.103.14.2" />
-        <!--VPNaddress="5.103.14.2"-->
-        <!--ToggleWindowOnTop="False"-->
-        <!--RemoveMaximizeRestore="True"-->
-
-       
+        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" ToggleWindowOnTop="True" VPNaddress="192.0.2.1" />
+      
 
 
     </Grid>
