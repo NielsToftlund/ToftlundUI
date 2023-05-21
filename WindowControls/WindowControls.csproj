@@ -11,4 +11,10 @@
     <ProjectReference Include="..\ToftlundUI\ToftlundUI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestIcon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -136,11 +137,35 @@ namespace ToftlundUI
                 typeof(WindowControls),
                 new PropertyMetadata(false));
 
+        public string Icon
+        {
+            get { return (string)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+        public static readonly DependencyProperty IconProperty
+            = DependencyProperty.Register(
+                "Icon",
+                typeof(string),
+                typeof(WindowControls),
+                new PropertyMetadata(string.Empty));
+
+        public bool IconOnTaskbar
+        {
+            get { return (bool)GetValue(IconOnTaskbarProperty); }
+            set { SetValue(IconOnTaskbarProperty, value); }
+        }
+        public static readonly DependencyProperty IconOnTaskbarProperty
+            = DependencyProperty.Register(
+                "IconOnTaskbar",
+                typeof(bool),
+                typeof(WindowControls),
+                new PropertyMetadata(true));
 
         Path? RestoreImage, MaximizeImage, PinOff, PinOn, CloudOn, CloudOff, NoNet;
         Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
         ContentControl? ConnectionIcon;
         Label? TitleBar, EmptySpace;
+        Image? TitleImage;
 
         public override void OnApplyTemplate()
         {
@@ -195,10 +220,39 @@ namespace ToftlundUI
             TitleBar!.MouseDown += TitleBar_MouseDown;
             TitleBar!.MouseDoubleClick += TitleBar_MouseDoubleClick;
 
+            TitleImage = GetTemplateChild("TitleImage") as Image;
+            TitleImage!.Loaded += TitleImage_Loaded;
+
+
             EmptySpace = GetTemplateChild("EmptySpace") as Label;
             EmptySpace!.MouseDown += TitleBar_MouseDown;
             EmptySpace!.MouseDoubleClick += TitleBar_MouseDoubleClick;
             
+        }
+
+        private void TitleImage_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            if (!DesignerProperties.GetIsInDesignMode(this))
+            {
+                if (Icon != string.Empty)
+                {
+                    if (File.Exists(Icon))
+                    {
+                        TitleImage!.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(Icon)));
+                        Window window = Window.GetWindow(this);
+                        if (IconOnTaskbar)
+                        {
+                            window.Icon = TitleImage!.Source;
+                        }
+                    }
+                    else
+                    {
+                        Icon = string.Empty;
+                    }
+                }
+            }
+                
         }
 
         private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -259,7 +313,6 @@ namespace ToftlundUI
             else
             {
                 string UdvendigIP = HentPublicIP().Result.Trim().ToString();
-                Debug.WriteLine(UdvendigIP);
                 if (UdvendigIP == "no-net")
                 {
                     SetConnectionIcon("NoNet");
@@ -355,19 +408,6 @@ namespace ToftlundUI
             return Task.FromResult( result);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void PinWindow_Loaded(object sender, RoutedEventArgs e)
         {
             PinWindowRefresh();
@@ -392,7 +432,6 @@ namespace ToftlundUI
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
                 Window window = Window.GetWindow(this);
-                Debug.WriteLine(window.Topmost);
                 if (window.Topmost == true)
                 {
                     PinOn!.Visibility = Visibility.Visible;
@@ -442,16 +481,19 @@ namespace ToftlundUI
 
         private void RefreshMaximizeRestoreButton()
         {
-            Window window = Window.GetWindow(this);
-            if (window.WindowState == WindowState.Maximized)
+            if(RemoveMaximizeRestore == false)
             {
-                this.MaximizeImage!.Visibility = Visibility.Collapsed;
-                this.RestoreImage!.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                this.MaximizeImage!.Visibility = Visibility.Visible;
-                this.RestoreImage!.Visibility = Visibility.Collapsed;
+                Window window = Window.GetWindow(this);
+                if (window.WindowState == WindowState.Maximized)
+                {
+                    this.MaximizeImage!.Visibility = Visibility.Collapsed;
+                    this.RestoreImage!.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.MaximizeImage!.Visibility = Visibility.Visible;
+                    this.RestoreImage!.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

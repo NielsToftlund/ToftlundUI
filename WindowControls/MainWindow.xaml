@@ -7,7 +7,8 @@
         xmlns:MyNamespace="clr-namespace:ToftlundUI;assembly=ToftlundUI"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="Window Controls" Height="450" Width="600">
+        Height="200" Width="600"
+        >
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0"/>
@@ -16,13 +17,20 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Title="Window Control" Background="White" RemoveMaximizeRestore="True" ToggleWindowOnTop="True" VPNaddress="192.168.1.1" />
+        <MyNamespace:WindowControls Grid.Row="0" Background="White" Title="Window Control" Icon="TestIcon.ico" IconOnTaskbar="False" VPNaddress="192.168.1.1" ToggleWindowOnTop="True" RemoveMaximizeRestore="False" />
+        <!--Icon="TestIcon.ico"-->
+        <!--IconOnTaskbar="True"-->
+        <!--VPNaddress="192.168.1.1"-->
+        <!--ToggleWindowOnTop="True"-->
+        <!--RemoveMaximizeRestore="False"-->
+
+        <TextBlock Grid.Row="2" Margin="5">  
+            Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-minimize-maximize-close/62175" Click="Hyperlink_Click" >demonstration icon.</Hyperlink>
+        </TextBlock>
 
     </Grid>
 </Window>

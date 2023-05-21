@@ -80,35 +80,29 @@
     </Style>
     <!--#endregion-->
 
-
-
-
-
-
-
-    
-
+    <!--#region WindowControls-->
     <Style TargetType="{x:Type local:WindowControls}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:WindowControls">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/> <!-- Window icon -->
+                            <ColumnDefinition Width="auto"/> <!-- Text on controlbar-->
+                            <ColumnDefinition Width="*"/>    <!-- space to fill between text and buttons -->
+                            <ColumnDefinition Width="auto"/> <!-- Connection icon-->
+                            <ColumnDefinition Width="auto"/> <!-- Pin window button -->
+                            <ColumnDefinition Width="auto"/> <!-- minimize button -->
+                            <ColumnDefinition Width="auto"/> <!-- Restore button -->
+                            <ColumnDefinition Width="auto"/> <!-- Close button -->
                         </Grid.ColumnDefinitions>
 
+                        <Image Grid.Column="0" Name="TitleImage" Height="20" Margin="5,0,0,0" Source="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type Control}}}"   />
 
-                        <Label Grid.Column="0" Name="Title" Content="{TemplateBinding Title}" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
-                        <Label Grid.Column="1" Name="EmptySpace" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
-                        <!--<Label Grid.Column="2" Content="Connection"/>-->
+                        <Label Grid.Column="1" Name="Title" Content="{TemplateBinding Title}" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
+                        <Label Grid.Column="2" Name="EmptySpace" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
 
-                        <ContentControl Name="ConnectionIcon" Grid.Column="2"  Width="46" Height="32">
+                        <ContentControl Name="ConnectionIcon" Grid.Column="3"  Width="46" Height="32">
                             <!--Content="{Binding Source={StaticResource Cloud-off}}"-->
                             <ContentControl.Content>
                                 <Grid>
@@ -119,7 +113,7 @@
                             </ContentControl.Content>
                         </ContentControl>
                        
-                        <Button Name="PinWindow" Grid.Column="3" Width="46" Height="32">
+                        <Button Name="PinWindow" Grid.Column="4" Width="46" Height="32">
                             <Button.Content>
                                 <Grid>
                                     <Path Name="PinOff" Visibility="Visible" Width="20" Height="20" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000" Stretch="Uniform" Data="m 387.165 615.61176 5.43906 111.93926 -41.28372 41.28371 L 207.88797 625.40236 41.28372 792.00662 7.1e-4 791.2988 0 750.7229 166.60425 584.11864 22.46478 439.97917 63.74849 398.69545 172.53264 400.9794 402.07012 171.44192 367.91191 137.28371 409.19563 96 692.14511 378.94948 650.8614 420.2332 616.70248 386.07428 Z M 120.58786 455.53482 332.61029 667.55725 330.94364 589.26709 575.41947 344.79127 443.35384 212.72564 198.53225 457.54723 Z m 106.01086 106.01086 z" />
@@ -150,7 +144,7 @@
                         </Button>
 
 
-                        <Button Name="MinimizeButton" Grid.Column="4" Width="46" Height="32">
+                        <Button Name="MinimizeButton" Grid.Column="5" Width="46" Height="32">
                             <Button.Content>
                                 <Path Width="46" Height="32" Data="M 18,15 H 28" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />
                             </Button.Content>
@@ -177,7 +171,7 @@
                             </Button.Style>
                         </Button>
 
-                        <Button Name="restoreButton" Grid.Column="5" Width="46" Height="32">
+                        <Button Name="restoreButton" Grid.Column="6" Width="46" Height="32">
                             <Button.Content>
                                 <Grid>
                                     <Path x:Name="RestoreImage" Visibility="Collapsed" Width="46" Height="32" Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"	StrokeThickness="1" />
@@ -208,7 +202,7 @@
                             </Button.Style>
                         </Button>
 
-                        <Button Grid.Column="6" Width="46" Height="32"  Foreground="{TemplateBinding Foreground}" x:Name="CloseWindowButton" >
+                        <Button Grid.Column="7" Width="46" Height="32"  Foreground="{TemplateBinding Foreground}" x:Name="CloseWindowButton" >
                             <Button.Content>
                                 <Path Width="46" Height="32" Data="M 18,11 27,20 M 18,20 27,11" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />
                             </Button.Content>
@@ -276,7 +270,7 @@
    
 
 
-    <!--#region WindowControls-->
+
     
     
     <!--#endregion-->
