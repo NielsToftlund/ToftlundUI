@@ -99,16 +99,16 @@
 
                         <Image Grid.Column="0" Name="TitleImage" Height="20" Margin="5,0,0,0" Source="{Binding Icon, RelativeSource={RelativeSource AncestorType={x:Type Control}}}"   />
 
-                        <Label Grid.Column="1" Name="Title" Content="{TemplateBinding Title}" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
+                        <Label Grid.Column="1" Name="Title" Content="{TemplateBinding Title}" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }" Foreground="{TemplateBinding Foreground}" />
                         <Label Grid.Column="2" Name="EmptySpace" Background="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
 
                         <ContentControl Name="ConnectionIcon" Grid.Column="3"  Width="46" Height="32">
                             <!--Content="{Binding Source={StaticResource Cloud-off}}"-->
                             <ContentControl.Content>
                                 <Grid>
-                                    <Path Name="CloudOff" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000" Data="M19.8 22.6 17.15 20H6.5q-2.3 0-3.9-1.6T1 14.5q0-1.925 1.188-3.425 1.187-1.5 3.062-1.925.075-.2.15-.388.075-.187.15-.412L1.4 4.2l1.4-1.4 18.4 18.4ZM6.5 18h8.65L7.1 9.95q-.05.275-.075.525Q7 10.725 7 11h-.5q-1.45 0-2.475 1.025Q3 13.05 3 14.5q0 1.45 1.025 2.475Q5.05 18 6.5 18Zm4.625-4.025ZM21.6 18.75l-1.45-1.4q.425-.35.638-.812Q21 16.075 21 15.5q0-1.05-.725-1.775Q19.55 13 18.5 13H17v-2q0-2.075-1.462-3.538Q14.075 6 12 6q-.675 0-1.3.162-.625.163-1.2.513l-1.45-1.45q.875-.6 1.863-.913Q10.9 4 12 4q2.925 0 4.962 2.037Q19 8.075 19 11q1.725.2 2.863 1.487Q23 13.775 23 15.5q0 .975-.375 1.812-.375.838-1.025 1.438Zm-6.775-6.725Z"/>
-                                    <Path Name="CloudOn" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000" Data="M6.5 20q-2.275 0-3.887-1.575Q1 16.85 1 14.575q0-1.95 1.175-3.475Q3.35 9.575 5.25 9.15q.625-2.3 2.5-3.725Q9.625 4 12 4q2.925 0 4.962 2.037Q19 8.075 19 11q1.725.2 2.863 1.487Q23 13.775 23 15.5q0 1.875-1.312 3.188Q20.375 20 18.5 20Zm0-2h12q1.05 0 1.775-.725Q21 16.55 21 15.5q0-1.05-.725-1.775Q19.55 13 18.5 13H17v-2q0-2.075-1.462-3.538Q14.075 6 12 6 9.925 6 8.463 7.462 7 8.925 7 11h-.5q-1.45 0-2.475 1.025Q3 13.05 3 14.5q0 1.45 1.025 2.475Q5.05 18 6.5 18Zm5.5-6Z"/>
-                                    <Path Name="NoNet" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#000000" Data="m33.65 29.4-1.75-1.75q1.45-1.6 2.225-3.55.775-1.95.775-4.1 0-2.2-.825-4.175-.825-1.975-2.325-3.575l1.75-1.75q1.9 1.9 2.9 4.35 1 2.45 1 5.15 0 2.65-1 5.05t-2.75 4.35Zm-6.3-6.3-6.45-6.45q.6-.6 1.425-.9.825-.3 1.675-.3 1.9 0 3.225 1.325Q28.55 18.1 28.55 20q0 .85-.3 1.65-.3.8-.9 1.45ZM38.25 34l-1.75-1.75q2.35-2.55 3.675-5.675Q41.5 23.45 41.5 20q0-3.5-1.35-6.675t-3.8-5.675L38.1 5.9q2.85 2.85 4.375 6.475Q44 16 44 20q0 3.95-1.525 7.55-1.525 3.6-4.225 6.45Zm2.4 10.95L25.5 29.8V42h-3V26.8l-9.1-9.1q-.2.55-.25 1.125-.05.575-.05 1.175 0 2.2.8 4.2t2.35 3.55L14.5 29.5q-1.9-1.9-2.9-4.35-1-2.45-1-5.15 0-1.15.175-2.225.175-1.075.575-2.125l-3.1-3.1q-.85 1.75-1.3 3.625Q6.5 18.05 6.5 20q0 3.5 1.325 6.675t3.825 5.675L9.9 34.1q-2.85-2.8-4.375-6.45Q4 24 4 20q0-2.45.6-4.8.6-2.35 1.75-4.55l-3.3-3.3L5.2 5.2l37.6 37.6Z"/>
+                                    <Path Name="CloudOff" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{TemplateBinding Foreground}" Data="M480 976q-83 0-156-31.5T197 859q-54-54-85.5-127T80 576q0-83 31.5-156T197 293q54-54 127-85.5T480 176q83 0 156 31.5T763 293q54 54 85.5 127T880 576q0 83-31.5 156T763 859q-54 54-127 85.5T480 976Zm-43-61v-82q-35 0-59-26t-24-61v-44L149 497q-5 20-7 39.5t-2 39.5q0 130 84.5 227T437 915Zm294-108q22-24 38.5-51t28-56.5q11.5-29.5 17-60.5t5.5-63q0-106-58-192.5T607 257v18q0 35-24 61t-59 26h-87v87q0 17-13.5 28T393 488h-83v88h258q17 0 28 13t11 30v127h43q29 0 51 17t30 44Z"/>
+                                    <Path Name="CloudOn" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{TemplateBinding Foreground}" Data="M481-80q-84 0-157-31t-127.5-85Q142-250 111-323T80-480q0-84 31-157t84.5-127q53.5-54 125-85T473-880q45 0 91 8.5t70 19.5v72q0 34-26.5 60.5T547-693H433v80q0 19-13.5 32.5T387-567h-80v87h253q20 0 33.5 13.5T607-433v127h40q29 0 51.5 16t30.5 42q45-51 68-109.5T820-476q0-15-1-36.5t-3-34.5h60q2 10 3 29t1 37q0 84-31 157.5T764-196q-54 54-126.5 85T481-80Zm-48-55v-91q-33 0-56.5-23.5T353-306v-40L147-552q-4 23-5.5 37.5T140-483q0 134 83 232t210 116Zm291-472q-13 0-21.5-8.5T694-637v-146q0-13 8.5-21.5T724-813h16v-40q0-33 22.5-57t54.5-24q32 0 54.5 24t22.5 57v40h17q13 0 21.5 8.5T941-783v146q0 13-8.5 21.5T911-607H724Zm50-206h86v-40q0-19-12-33t-31-14q-19 0-31 14t-12 33v40Z"/>
+                                    <Path Name="NoNet" Visibility="Collapsed" Width="20" Height="20" Stretch="Uniform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="{TemplateBinding Foreground}" Data="M833-41 717-157q-50 37-110 57T480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-67 20-127t57-110L26-848l43-43L876-84l-43 43ZM437-141v-82q-35 0-59-26t-24-61v-44L149-559q-5 20-7 39.5t-2 39.5q0 130 84.5 227T437-141Zm366-102-43-43q29-43 44.5-92.5T820-480q0-106-58-192.5T607-799v18q0 35-24 61t-59 26h-87v85L243-803q50-37 110-57t127-20q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 67-20 127t-57 110Z"/>
                                 </Grid>
                             </ContentControl.Content>
                         </ContentControl>
@@ -116,8 +116,8 @@
                         <Button Name="PinWindow" Grid.Column="4" Width="46" Height="32">
                             <Button.Content>
                                 <Grid>
-                                    <Path Name="PinOff" Visibility="Visible" Width="20" Height="20" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000" Stretch="Uniform" Data="m 387.165 615.61176 5.43906 111.93926 -41.28372 41.28371 L 207.88797 625.40236 41.28372 792.00662 7.1e-4 791.2988 0 750.7229 166.60425 584.11864 22.46478 439.97917 63.74849 398.69545 172.53264 400.9794 402.07012 171.44192 367.91191 137.28371 409.19563 96 692.14511 378.94948 650.8614 420.2332 616.70248 386.07428 Z M 120.58786 455.53482 332.61029 667.55725 330.94364 589.26709 575.41947 344.79127 443.35384 212.72564 198.53225 457.54723 Z m 106.01086 106.01086 z" />
-                                    <Path Name="PinOn" Visibility="Collapsed" Width="20" Height="20" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="#000000" Stretch="Uniform" Data="m 382.073 478.999 82.999 75.307 V 612.69 H 262.228 v 235.614 l -29.692 28.691 -28.692 -28.691 V 612.69 H 0 V 554.306 L 78.537 478.999 V 154.384 H 30.23 V 96 h 400.151 v 58.384 H 382.073 Z M 80.383 554.306 H 380.228 L 323.69 500.125 V 154.384 H 136.921 v 346.23 z m 149.922 0 z"/>
+                                    <Path Name="PinOff" Visibility="Visible" Width="20" Height="20" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Data="m 387.165 615.61176 5.43906 111.93926 -41.28372 41.28371 L 207.88797 625.40236 41.28372 792.00662 7.1e-4 791.2988 0 750.7229 166.60425 584.11864 22.46478 439.97917 63.74849 398.69545 172.53264 400.9794 402.07012 171.44192 367.91191 137.28371 409.19563 96 692.14511 378.94948 650.8614 420.2332 616.70248 386.07428 Z M 120.58786 455.53482 332.61029 667.55725 330.94364 589.26709 575.41947 344.79127 443.35384 212.72564 198.53225 457.54723 Z m 106.01086 106.01086 z" />
+                                    <Path Name="PinOn" Visibility="Collapsed" Width="20" Height="20" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="{TemplateBinding Foreground}" Stretch="Uniform" Data="m 382.073 478.999 82.999 75.307 V 612.69 H 262.228 v 235.614 l -29.692 28.691 -28.692 -28.691 V 612.69 H 0 V 554.306 L 78.537 478.999 V 154.384 H 30.23 V 96 h 400.151 v 58.384 H 382.073 Z M 80.383 554.306 H 380.228 L 323.69 500.125 V 154.384 H 136.921 v 346.23 z m 149.922 0 z"/>
                                 </Grid>
                             </Button.Content>
                             <Button.Style>
@@ -144,9 +144,9 @@
                         </Button>
 
 
-                        <Button Name="MinimizeButton" Grid.Column="5" Width="46" Height="32">
+                        <Button Name="MinimizeButton" Grid.Column="5" Width="46" Height="32" Foreground="{TemplateBinding Foreground}">
                             <Button.Content>
-                                <Path Width="46" Height="32" Data="M 18,15 H 28" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />
+                                <Path x:Name="PathMinimizeButton" Width="46" Height="32" Data="M 18,15 H 28" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />
                             </Button.Content>
                             <Button.Style>
                                 <Style TargetType="{x:Type Button}">
@@ -160,10 +160,15 @@
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
+                                    
                                     <Style.Triggers>
                                         
                                         <Trigger Property="IsMouseOver" Value="True" >
                                             <Setter Property="Background" Value="{Binding Path=OnMouseOverBackground, RelativeSource={RelativeSource AncestorType={x:Type Control}} }"/>
+
+                                            <Setter Property="Foreground" Value="{Binding Path=OnMouseOverForeground, RelativeSource={RelativeSource AncestorType={x:Type Path}} }"/>
+                                            <!--<Setter TargetName="PathMinimizeButton"  Property="Stroke" Value="{Binding Path=OnMouseOverForeground, RelativeSource={RelativeSource AncestorType={x:Type Path}} }"/>
+                                            <Setter TargetName="restoreButton" Property="Fill" Value="Red" />-->
                                             
                                         </Trigger>
                                     </Style.Triggers>
@@ -171,12 +176,13 @@
                             </Button.Style>
                         </Button>
 
-                        <Button Name="restoreButton" Grid.Column="6" Width="46" Height="32">
+                        <Button Name="restoreButton" Grid.Column="6" Width="46" Height="32" Foreground="{TemplateBinding Foreground}">
                             <Button.Content>
                                 <Grid>
                                     <Path x:Name="RestoreImage" Visibility="Collapsed" Width="46" Height="32" Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"	StrokeThickness="1" />
 
                                     <Path x:Name="MaximizeImage" Visibility="Visible" Width="46" Height="32" Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />
+                                    <!--<Path x:Name="MaximizeImage" Visibility="Visible" Stretch="UniformToFill" Width="46" Height="32"  Fill="Black" Data="M119-770v-60h721v60H119Z" Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" StrokeThickness="1" />-->
                                     
                                 </Grid>
 

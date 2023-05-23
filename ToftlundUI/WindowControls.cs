@@ -62,6 +62,30 @@ namespace ToftlundUI
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowControls), new FrameworkPropertyMetadata(typeof(WindowControls)));
         }
+        public Brush AlertForeground
+        {
+            get { return (Brush)GetValue(AlertForegroundProperty); }
+            set { SetValue(AlertForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty AlertForegroundProperty
+            = DependencyProperty.Register(
+                "AlertForeground",
+                typeof(Brush),
+                typeof(WindowControls),
+                new PropertyMetadata(new SolidColorBrush(Colors.Red)));
+
+        public Brush OnMouseOverForeground
+        {
+            get { return (Brush)GetValue(OnMouseOverForegroundProperty); }
+            set { SetValue(OnMouseOverForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty OnMouseOverForegroundProperty
+            = DependencyProperty.Register(
+                "OnMouseOverForeground",
+                typeof(Brush),
+                typeof(WindowControls),
+                new PropertyMetadata(new SolidColorBrush(Colors.White)));
+
         public Brush OnMouseOverBackground
         {
             get { return (Brush)GetValue(OnMouseOverBackgroundProperty); }
@@ -359,6 +383,14 @@ namespace ToftlundUI
                         NoNet!.Visibility = Visibility.Collapsed;
                         CloudOn!.Visibility = Visibility.Collapsed;
                         CloudOff!.Visibility = Visibility.Visible;
+                        if(VPNaddress != "no-vpn")
+                        {
+                            CloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
+                        }
+                        else
+                        {
+                            CloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
+                        }
                     }
                     else
                     {
@@ -367,6 +399,14 @@ namespace ToftlundUI
                             NoNet!.Visibility = Visibility.Collapsed;
                             CloudOn!.Visibility = Visibility.Collapsed;
                             CloudOff!.Visibility = Visibility.Visible;
+                            if (VPNaddress != "no-vpn")
+                            {
+                                CloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
+                            }
+                            else
+                            {
+                                CloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
+                            }
                         });
                     }
                     break;
