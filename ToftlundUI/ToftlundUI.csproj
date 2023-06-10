@@ -19,6 +19,19 @@
     <PackageTags>wpf;components;statusbar;titlebar;ipv4adress</PackageTags>
     <FileVersion>1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ApplicationIcon>browser-8_icon-icons.com_62190.ico</ApplicationIcon>
+    <PackageIcon>browser-8_icon-icons.com_62190-128x128.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="browser-8_icon-icons.com_62190.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="browser-8_icon-icons.com_62190-128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
