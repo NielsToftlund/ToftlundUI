@@ -30,5 +30,8 @@
         <MyNamespace:IPv4Address x:Name="Ip4adresse" Grid.Row="0" BorderBrush="Black" BorderThickness="1" CornerRadius="4" IPaddress="127.1.1.1" ></MyNamespace:IPv4Address>
         <Button Grid.Row="1" Click="HentIpadress" >Tryk her for IP adresse</Button>
         <Label x:Name="IpadresseIndhold" Grid.Row="2" />
+        <TextBlock Grid.Row="3" Margin="5" FontSize="15" VerticalAlignment="Bottom">  
+            Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-shine-shine-sun/62190" Click="Hyperlink_Click" >icon.</Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

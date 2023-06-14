@@ -36,7 +36,7 @@
         
 
         <TextBlock Grid.Row="2" Margin="5">  
-            Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-minimize-maximize-close/62175" Click="Hyperlink_Click" >demonstration icon.</Hyperlink>
+            Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-minimize-maximize-close/62175" Click="Hyperlink_Click" >demonstration icon</Hyperlink> and <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-shine-shine-sun/62190" Click="Hyperlink_Click" >icon.</Hyperlink>
         </TextBlock>
 
     </Grid>

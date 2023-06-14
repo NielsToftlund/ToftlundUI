@@ -28,6 +28,8 @@
                                
                                />
         <Button Grid.Row="2" Content="Press to start" Click="TrykHerKlik"  />
-        
+        <TextBlock Grid.Row="3" Margin="5" FontSize="15" VerticalAlignment="Bottom">  
+            Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-shine-shine-sun/62190" Click="Hyperlink_Click" >icon.</Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>
