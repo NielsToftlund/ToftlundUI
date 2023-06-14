@@ -30,5 +30,15 @@ namespace IPv4Address
         {
             IpadresseIndhold.Content = Ip4adresse.IPaddress.ToString();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Hyperlink link = (Hyperlink)e.OriginalSource;
+            var sInfo = new System.Diagnostics.ProcessStartInfo(link.NavigateUri.AbsoluteUri)
+            {
+                UseShellExecute = true,
+            };
+            System.Diagnostics.Process.Start(sInfo);
+        }
     }
 }
