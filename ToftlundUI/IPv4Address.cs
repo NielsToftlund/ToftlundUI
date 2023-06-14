@@ -54,7 +54,7 @@ namespace ToftlundUI
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IPv4Address), new FrameworkPropertyMetadata(typeof(IPv4Address)));
         }
 
-        TextBox? Segment1, Segment2, Segment3, Segment4;
+        TextBox? Segment1, Segment2, Segment3, Segment4, Dot1, Dot2, Dot3;
         private static readonly List<Key> DigitKeys = new() { Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3, Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7, Key.NumPad8, Key.NumPad9 };
         private static readonly List<Key> MoveForwardKeys = new() { Key.Right };
         private static readonly List<Key> MoveBackwardKeys = new() { Key.Left };
@@ -96,6 +96,9 @@ namespace ToftlundUI
             Segment2 = GetTemplateChild("Segment2") as TextBox;
             Segment3 = GetTemplateChild("Segment3") as TextBox;
             Segment4 = GetTemplateChild("Segment4") as TextBox;
+            Dot1 = GetTemplateChild("Dot1") as TextBox;
+            Dot2 = GetTemplateChild("Dot2") as TextBox;
+            Dot3 = GetTemplateChild("Dot3") as TextBox;
             IPv4AddressBorder = GetTemplateChild("IPv4AddressBorder") as Border;
             
             // Events
@@ -168,6 +171,18 @@ namespace ToftlundUI
                 TopRight = CornerRadius.TopLeft,
                 BottomRight = CornerRadius.TopLeft
             };
+
+            Border NoColor = new()
+            {
+                BorderBrush = new SolidColorBrush(Colors.Red)
+            };
+
+            Segment2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            Segment3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            Dot1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            Dot2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            Dot3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+
             Segment1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
             Segment4!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(RightSideCornerRadius));
 

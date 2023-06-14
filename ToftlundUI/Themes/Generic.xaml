@@ -65,11 +65,11 @@
                         <Border Grid.Row="1" Grid.Column="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" x:Name="IPv4AddressBorder">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
                                 <TextBox x:Name="Segment1" BorderThickness="0" Background="{TemplateBinding Background}" VerticalAlignment="Center" Text="" MaxLength="3" />
-                                <TextBox VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False" />
+                                <TextBox x:Name="Dot1" VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False" />
                                 <TextBox x:Name="Segment2" BorderThickness="0" Background="{TemplateBinding Background}" VerticalAlignment="Center" Text="" MaxLength="3"/>
-                                <TextBox VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False"/>
+                                <TextBox x:Name="Dot2" VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False"/>
                                 <TextBox x:Name="Segment3" BorderThickness="0" Background="{TemplateBinding Background}" VerticalAlignment="Center" Text="" MaxLength="3"/>
-                                <TextBox VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False"/>
+                                <TextBox x:Name="Dot3" VerticalAlignment="Center" Text="." BorderThickness="0" Background="{TemplateBinding Background}" Focusable="False"/>
                                 <TextBox x:Name="Segment4" BorderThickness="0" Background="{TemplateBinding Background}" VerticalAlignment="Center" Text="" MaxLength="3"/>
                             </StackPanel>
                         </Border>
