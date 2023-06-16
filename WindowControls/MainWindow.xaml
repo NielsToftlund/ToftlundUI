@@ -18,10 +18,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Background="White" OnMouseOverForeground="Red"   Title="Window Control" Icon="TestIcon.ico" IconOnTaskbar="False" VPNaddress="5.103.14.2" ToggleWindowOnTop="True" RemoveMaximizeRestore="False" />
+        <MyNamespace:WindowControls Grid.Row="0" Background="White" OnMouseOverForeground="Red" x:Name="TitleBar"  Title="Window Control" Icon="TestIcon.ico" IconOnTaskbar="False" VPNaddress="5.103.14.2" ToggleWindowOnTop="True" RemoveMaximizeRestore="False" />
         <!--Icon="TestIcon.ico"-->
         <!--IconOnTaskbar="True"-->
         <!--VPNaddress="192.168.1.1"-->
@@ -32,10 +35,11 @@
         <!--OnMouseOverCloseBackground="Green"-->
         <!--Foreground="Blue"-->
         <!--AlertForeground="DeepPink"-->
-        
-        
 
-        <TextBlock Grid.Row="2" Margin="5">  
+        <Button Grid.Row="2" Content="Push here to see status of VPNaddress" Click="ClickVPNstatus" />
+        <Label x:Name="VPNstatusText" Grid.Row="3" />
+
+        <TextBlock Grid.Row="5" Margin="5">  
             Thanks to <Hyperlink NavigateUri="https://icon-icons.com/users/GqOIhDkCWEXIWRatwWrxK/icon-sets/" Click="Hyperlink_Click">Baianat</Hyperlink> for <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-minimize-maximize-close/62175" Click="Hyperlink_Click" >demonstration icon</Hyperlink> and <Hyperlink NavigateUri="https://icon-icons.com/icon/browser-window-shine-shine-sun/62190" Click="Hyperlink_Click" >icon.</Hyperlink>
         </TextBlock>
 

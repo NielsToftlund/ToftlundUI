@@ -35,5 +35,10 @@ namespace WindowControls
             };
             System.Diagnostics.Process.Start(sInfo);
         }
+
+        private void ClickVPNstatus(object sender, RoutedEventArgs e)
+        {
+            VPNstatusText.Content = TitleBar.ConnectionStatus;
+        }
     }
 }

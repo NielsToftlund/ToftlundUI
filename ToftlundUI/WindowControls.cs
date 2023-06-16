@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -138,7 +139,6 @@ namespace ToftlundUI
         {
             get {
                 return Application.Current.Dispatcher.Invoke(() => (string)GetValue(VPNaddressProperty));
-                //return (string)GetValue(VPNaddressProperty); 
             }
             set { SetValue(VPNaddressProperty, value); }
         }
@@ -190,6 +190,15 @@ namespace ToftlundUI
         ContentControl? ConnectionIcon;
         Label? TitleBar, EmptySpace;
         Image? TitleImage;
+
+        private string ConnectionStatusValue = "NoConnection";
+        public string ConnectionStatus {
+            get   
+            {
+                TestIP(VPNaddress); 
+                return ConnectionStatusValue; 
+            }
+        }
 
         public override void OnApplyTemplate()
         {
@@ -328,28 +337,39 @@ namespace ToftlundUI
 
         private void TestIP(string VPNadresse)
         {
+            string UdvendigIP = HentPublicIP().Result.Trim().ToString();
             if (VPNaddress == "no-vpn")
             {
+                if (UdvendigIP == "no-net")
+                {
+                    ConnectionStatusValue = "NoConnection";
+                }
+                else
+                {
+                    ConnectionStatusValue = "Connected";
+                }
                 NoNet!.Visibility = Visibility.Collapsed;
                 CloudOn!.Visibility = Visibility.Collapsed;
                 CloudOff!.Visibility = Visibility.Collapsed;
             }
             else
             {
-                string UdvendigIP = HentPublicIP().Result.Trim().ToString();
                 if (UdvendigIP == "no-net")
                 {
                     SetConnectionIcon("NoNet");
+                    ConnectionStatusValue = "NoConnection";
                 }
                 else
                 {
                     if (VPNadresse == UdvendigIP)
                     {
                         SetConnectionIcon("VPNon");
+                        ConnectionStatusValue = "VpnConnection";
                     }
                     else
                     {
                         SetConnectionIcon("VPNoff");
+                        ConnectionStatusValue = "LostVpnConnection";
                     }
                 }
             }
