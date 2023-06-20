@@ -22,6 +22,8 @@
     <ApplicationIcon>browser-8_icon-icons.com_62190.ico</ApplicationIcon>
     <PackageIcon>browser-8_icon-icons.com_62190-128x128.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>1. Added readonly method ConnectionStatus for Window Control
+2. Added this readme file</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
