@@ -16,11 +16,12 @@
     <Authors>Niels Bjerkstad Toftlund</Authors>
     <RepositoryUrl>https://github.com/NielsToftlund/ToftlundUI</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>wpf;components;statusbar;titlebar;ipv4adress</PackageTags>
+    <PackageTags>wpf;components;statusbar;titlebar;ip address</PackageTags>
     <FileVersion>1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ApplicationIcon>browser-8_icon-icons.com_62190.ico</ApplicationIcon>
     <PackageIcon>browser-8_icon-icons.com_62190-128x128.png</PackageIcon>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,14 @@
 
   <ItemGroup>
     <None Include="browser-8_icon-icons.com_62190-128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
