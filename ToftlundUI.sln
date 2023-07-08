@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StatusBar", "StatusBar\Stat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPv4Address", "IPv4Address\IPv4Address.csproj", "{46BDEADC-6C9C-4C75-99A6-9F09BF2BC847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowControls", "WindowControls\WindowControls.csproj", "{24D94CEF-91FD-4576-AE52-3FDF954C18E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowControls", "WindowControls\WindowControls.csproj", "{24D94CEF-91FD-4576-AE52-3FDF954C18E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnePageNavigation", "OnePageNavigation\OnePageNavigation.csproj", "{B20A8148-A4AC-4D86-A7E1-0EE02847AB02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{24D94CEF-91FD-4576-AE52-3FDF954C18E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24D94CEF-91FD-4576-AE52-3FDF954C18E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24D94CEF-91FD-4576-AE52-3FDF954C18E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20A8148-A4AC-4D86-A7E1-0EE02847AB02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20A8148-A4AC-4D86-A7E1-0EE02847AB02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20A8148-A4AC-4D86-A7E1-0EE02847AB02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20A8148-A4AC-4D86-A7E1-0EE02847AB02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
