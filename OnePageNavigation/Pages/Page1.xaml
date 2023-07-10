@@ -1,0 +1,72 @@
+﻿<Page x:Class="OnePageNavigation.Pages.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OnePageNavigation.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      
+      MinWidth="400"
+      
+      
+      Title="Page1">
+    <Grid>
+        <Border BorderBrush="DeepSkyBlue" BorderThickness="5" />
+       
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Page 1" FontSize="40" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                <StackPanel Grid.Row="1">
+                    <Label Content="Kolonne 1" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 2" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 3" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 4" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 5" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 6" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 7" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 8" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 9" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 10" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 11" FontSize="30"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Kolonne 12" FontSize="30"/>
+                </StackPanel>
+
+            </WrapPanel>
+
+        </Grid>
+            
+
+
+        
+    </Grid>
+    
+    
+</Page>

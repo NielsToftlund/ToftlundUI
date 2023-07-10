@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OnePageNavigation
+namespace OnePageNavigation.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Page1 : Page
     {
-        public MainWindow()
+        public Page1()
         {
             InitializeComponent();
-        }
-
-        private void ClickPage1(object sender, RoutedEventArgs e)
-        {
-            PageView.NavigationService.Navigate(new Pages.Page1());
-        }
-
-        private void ClickPage2(object sender, RoutedEventArgs e)
-        {
-            PageView.NavigationService.Navigate(new Pages.Page2());
         }
     }
 }
