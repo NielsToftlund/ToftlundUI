@@ -52,8 +52,8 @@ namespace ToftlundUI
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBar), new FrameworkPropertyMetadata(typeof(StatusBar)));
         }
 
-        Stopwatch stopwatch = new();
-        List<double> Tider = new List<double>();
+        readonly Stopwatch stopwatch = new();
+        readonly List<double> Tider = [];
 
         ProgressBar? StatusProgressBar;
         RectangleGeometry? Blockbox;

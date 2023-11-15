@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ToftlundUI
 {
@@ -55,10 +46,10 @@ namespace ToftlundUI
         }
 
         TextBox? Segment1, Segment2, Segment3, Segment4, Dot1, Dot2, Dot3;
-        private static readonly List<Key> DigitKeys = new() { Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3, Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7, Key.NumPad8, Key.NumPad9 };
-        private static readonly List<Key> MoveForwardKeys = new() { Key.Right };
-        private static readonly List<Key> MoveBackwardKeys = new() { Key.Left };
-        private static readonly List<Key> OtherAllowedKeys = new() { Key.Tab, Key.Delete };
+        private static readonly List<Key> DigitKeys = [Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3, Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7, Key.NumPad8, Key.NumPad9];
+        private static readonly List<Key> MoveForwardKeys = [Key.Right];
+        private static readonly List<Key> MoveBackwardKeys = [Key.Left];
+        private static readonly List<Key> OtherAllowedKeys = [Key.Tab, Key.Delete];
 
         Border? IPv4AddressBorder;
         public CornerRadius CornerRadius
@@ -78,7 +69,7 @@ namespace ToftlundUI
             get { return (string)GetValue(IPaddressProperty); }
             set { SetValue(IPaddressProperty, value);}
         }
-        public static readonly DependencyProperty IPaddressProperty
+        public static DependencyProperty IPaddressProperty
             = DependencyProperty.Register(
                 "IPaddress",
                 typeof(string),
@@ -270,7 +261,7 @@ namespace ToftlundUI
             }
         }
 
-        public ControlTemplate GetRoundedTextBoxTemplate(CornerRadius RadiusData)
+        public static ControlTemplate GetRoundedTextBoxTemplate(CornerRadius RadiusData)
         {
             ControlTemplate template = new(typeof(TextBoxBase));
             FrameworkElementFactory elemFactory = new(typeof(Border))
@@ -288,7 +279,7 @@ namespace ToftlundUI
             return template;
         }
 
-        private readonly List<TextBox> _segments = new();
+        private readonly List<TextBox> _segments = [];
 
         private bool ShouldCancelBackwardKeyPress()
         {
