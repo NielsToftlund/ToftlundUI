@@ -14,7 +14,7 @@ For instructions on how to use see the [Github Wiki](https://github.com/NielsTof
 
 ## Built With
 - C#
-- .NET 7.0
+- .NET 8.0
 
 ## Author
 **Niels Bjerkstad Toftlund**
@@ -29,6 +29,9 @@ Contributions, issues, and feature requests are welcome!
 Give a ⭐️ if you like this project!
 
 ## Changelog
+
+### 1.4.0
+1. Upgraded to .NET 8
 
 ### 1.3.2
 1. Added readonly method ConnectionStatus for Window Control
