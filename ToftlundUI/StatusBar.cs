@@ -195,7 +195,13 @@ namespace ToftlundUI
 
             StatusText!.Text = StatusTextBund.Text;
 
-            double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
+            string renderSize = StatusProgressBar!.RenderSize.ToString().Replace(",", ".");
+            if (renderSize.IndexOf(';') > 0)
+            {
+                renderSize = renderSize.Replace(';', '.');
+            }
+            double ProgressX = (Convert.ToDouble(renderSize) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
+            // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
             Rect boxstørrelse = new()
             {
                 Width = ProgressX,
