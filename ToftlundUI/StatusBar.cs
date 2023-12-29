@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ToftlundUI
 {
@@ -195,13 +196,25 @@ namespace ToftlundUI
 
             StatusText!.Text = StatusTextBund.Text;
 
-            string renderSize = StatusProgressBar!.RenderSize.ToString().Replace(",", ".");
+
+            Debug.WriteLine(StatusProgressBar!.RenderSize.ToString());
+            
+
+
+            //string renderSize = StatusProgressBar!.RenderSize.ToString().Replace(",", ".");
+            string renderSize = StatusProgressBar!.RenderSize.ToString();
             if (renderSize.IndexOf(';') > 0)
             {
-                renderSize = renderSize.Replace(';', '.');
+                //renderSize = renderSize.Replace(';', '.');
+                renderSize = renderSize.Substring(0, renderSize.IndexOf(';') );
             }
+            else if (renderSize.IndexOf(',') > 0)
+            {
+                renderSize = renderSize.Substring(0, renderSize.IndexOf(',') );
+            }
+
             double ProgressX = (Convert.ToDouble(renderSize) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
-            // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
+           // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
             Rect boxstørrelse = new()
             {
                 Width = ProgressX,

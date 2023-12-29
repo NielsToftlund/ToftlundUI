@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <Title>Toflund User Interface Controls</Title>
     <Copyright>Niels Bjerkstad Toftlund</Copyright>
-    <AssemblyVersion>1.4.1</AssemblyVersion>
+    <AssemblyVersion>1.4.2</AssemblyVersion>
     <Version>$(AssemblyVersion)</Version>
     <Description>Custom Controls for different applications</Description>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
@@ -22,7 +22,7 @@
     <ApplicationIcon>browser-8_icon-icons.com_62190.ico</ApplicationIcon>
     <PackageIcon>browser-8_icon-icons.com_62190-128x128.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>Upgraded to .NET 8</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
