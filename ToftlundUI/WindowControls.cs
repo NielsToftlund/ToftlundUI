@@ -122,7 +122,8 @@ namespace ToftlundUI
 
         public string VPNaddress
         {
-            get {
+            get
+            {
                 return Application.Current.Dispatcher.Invoke(() => (string)GetValue(VPNaddressProperty));
             }
             set { SetValue(VPNaddressProperty, value); }
@@ -170,82 +171,88 @@ namespace ToftlundUI
                 typeof(WindowControls),
                 new PropertyMetadata(true));
 
-        Path? RestoreImage, MaximizeImage, PinOff, PinOn, CloudOn, CloudOff, NoNet;
-        Button? CloseWindowButton, RestoreButton, MinimizeButton, PinWindow;
-        ContentControl? ConnectionIcon;
-        Label? TitleBar, EmptySpace;
-        Image? TitleImage;
+        private Path? _restoreImage, _maximizeImage, _pinOff, _pinOn, _cloudOn, _cloudOff, _noNet;
+        private Button? _closeWindowButton, _restoreButton, _minimizeButton, _pinWindow;
+        private ContentControl? _connectionIcon;
+        private Label? _titleBar, _emptySpace;
+        private Image? _titleImage;
 
-        private string ConnectionStatusValue = "NoConnection";
-        public string ConnectionStatus {
-            get   
+        private string _connectionStatusValue = "NoConnection";
+        public string ConnectionStatus
+        {
+            get
             {
-                TestIP(VPNaddress); 
-                return ConnectionStatusValue; 
+                TestIP(VPNaddress);
+                return _connectionStatusValue;
             }
         }
 
         public override void OnApplyTemplate()
         {
-            CloseWindowButton = GetTemplateChild("CloseWindowButton") as Button;
-            CloseWindowButton!.Click += CloseWindow_Click;
+            _titleImage = GetTemplateChild("TitleImage") as Image;
+            if (IconOnTaskbar == false)
+            {
+                _titleImage!.Visibility = Visibility.Collapsed;
+            }
+            _closeWindowButton = GetTemplateChild("CloseWindowButton") as Button;
+            _closeWindowButton!.Click += CloseWindow_Click;
 
-            RestoreButton = GetTemplateChild("restoreButton") as Button;
-            MinimizeButton = GetTemplateChild("MinimizeButton") as Button;
+            _restoreButton = GetTemplateChild("restoreButton") as Button;
+            _minimizeButton = GetTemplateChild("MinimizeButton") as Button;
             if (RemoveMaximizeRestore == false)
             {
-                RestoreImage = GetTemplateChild("RestoreImage") as Path;
-                MaximizeImage = GetTemplateChild("MaximizeImage") as Path;
-                RestoreButton!.Loaded += RestoreButton_Loaded;
-                RestoreButton!.Click += RestoreButton_Click;
-                MinimizeButton!.Click += MinimizeButton_Click;
+                _restoreImage = GetTemplateChild("RestoreImage") as Path;
+                _maximizeImage = GetTemplateChild("MaximizeImage") as Path;
+                _restoreButton!.Loaded += RestoreButton_Loaded;
+                _restoreButton!.Click += RestoreButton_Click;
+                _minimizeButton!.Click += MinimizeButton_Click;
             }
             else
             {
-                RestoreButton!.Visibility = Visibility.Collapsed;
-                MinimizeButton!.Visibility = Visibility.Collapsed;
+                _restoreButton!.Visibility = Visibility.Collapsed;
+                _minimizeButton!.Visibility = Visibility.Collapsed;
             }
 
-            if(ToggleWindowOnTop == true)
+            if (ToggleWindowOnTop == true)
             {
-                PinWindow = GetTemplateChild("PinWindow") as Button;
-                PinOff = GetTemplateChild("PinOff") as Path;
-                PinOn = GetTemplateChild("PinOn") as Path;
-                PinWindow!.Loaded += PinWindow_Loaded;
-                PinWindow!.Click += PinWindow_Click;
+                _pinWindow = GetTemplateChild("PinWindow") as Button;
+                _pinOff = GetTemplateChild("PinOff") as Path;
+                _pinOn = GetTemplateChild("PinOn") as Path;
+                _pinWindow!.Loaded += PinWindow_Loaded;
+                _pinWindow!.Click += PinWindow_Click;
             }
             else
             {
-                PinWindow = GetTemplateChild("PinWindow") as Button;
-                PinWindow!.Visibility = Visibility.Collapsed;
+                _pinWindow = GetTemplateChild("PinWindow") as Button;
+                _pinWindow!.Visibility = Visibility.Collapsed;
             }
 
-            ConnectionIcon = GetTemplateChild("ConnectionIcon") as ContentControl;
+            _connectionIcon = GetTemplateChild("ConnectionIcon") as ContentControl;
             if (VPNaddress != "no-vpn")
             {
-                CloudOn = GetTemplateChild("CloudOn") as Path;
-                CloudOff = GetTemplateChild("CloudOff") as Path;
-                NoNet = GetTemplateChild("NoNet") as Path;
-                ConnectionIcon!.Loaded += ConnectionIcon_Loaded;
+                _cloudOn = GetTemplateChild("CloudOn") as Path;
+                _cloudOff = GetTemplateChild("CloudOff") as Path;
+                _noNet = GetTemplateChild("NoNet") as Path;
+                _connectionIcon!.Loaded += ConnectionIcon_Loaded;
                 TestIP(VPNaddress);
             }
             else
             {
-                ConnectionIcon!.Visibility = Visibility.Collapsed;
+                _connectionIcon!.Visibility = Visibility.Collapsed;
             }
 
-            TitleBar = GetTemplateChild("Title") as Label;
-            TitleBar!.MouseDown += TitleBar_MouseDown;
-            TitleBar!.MouseDoubleClick += TitleBar_MouseDoubleClick;
+            _titleBar = GetTemplateChild("Title") as Label;
+            _titleBar!.MouseDown += TitleBar_MouseDown;
+            _titleBar!.MouseDoubleClick += TitleBar_MouseDoubleClick;
 
-            TitleImage = GetTemplateChild("TitleImage") as Image;
-            TitleImage!.Loaded += TitleImage_Loaded;
+            _titleImage = GetTemplateChild("TitleImage") as Image;
+            _titleImage!.Loaded += TitleImage_Loaded;
 
 
-            EmptySpace = GetTemplateChild("EmptySpace") as Label;
-            EmptySpace!.MouseDown += TitleBar_MouseDown;
-            EmptySpace!.MouseDoubleClick += TitleBar_MouseDoubleClick;
-            
+            _emptySpace = GetTemplateChild("EmptySpace") as Label;
+            _emptySpace!.MouseDown += TitleBar_MouseDown;
+            _emptySpace!.MouseDoubleClick += TitleBar_MouseDoubleClick;
+
         }
 
         private void TitleImage_Loaded(object sender, RoutedEventArgs e)
@@ -257,20 +264,25 @@ namespace ToftlundUI
                 {
                     if (File.Exists(Icon))
                     {
-                        TitleImage!.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(Icon)));
+                        _titleImage!.Source = new BitmapImage(new Uri(System.IO.Path.GetFullPath(Icon)));
                         Window window = Window.GetWindow(this);
                         if (IconOnTaskbar)
                         {
-                            window.Icon = TitleImage!.Source;
+                            window.Icon = _titleImage!.Source;
                         }
                     }
                     else
                     {
                         Icon = string.Empty;
+                        this._titleImage!.Visibility = Visibility.Collapsed;
                     }
                 }
+                else
+                {
+                    this._titleImage!.Visibility = Visibility.Collapsed;
+                }
             }
-                
+
         }
 
         private void TitleBar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -327,34 +339,34 @@ namespace ToftlundUI
             {
                 if (UdvendigIP == "no-net")
                 {
-                    ConnectionStatusValue = "NoConnection";
+                    _connectionStatusValue = "NoConnection";
                 }
                 else
                 {
-                    ConnectionStatusValue = "Connected";
+                    _connectionStatusValue = "Connected";
                 }
-                NoNet!.Visibility = Visibility.Collapsed;
-                CloudOn!.Visibility = Visibility.Collapsed;
-                CloudOff!.Visibility = Visibility.Collapsed;
+                _noNet!.Visibility = Visibility.Collapsed;
+                _cloudOn!.Visibility = Visibility.Collapsed;
+                _cloudOff!.Visibility = Visibility.Collapsed;
             }
             else
             {
                 if (UdvendigIP == "no-net")
                 {
                     SetConnectionIcon("NoNet");
-                    ConnectionStatusValue = "NoConnection";
+                    _connectionStatusValue = "NoConnection";
                 }
                 else
                 {
                     if (VPNadresse == UdvendigIP)
                     {
                         SetConnectionIcon("VPNon");
-                        ConnectionStatusValue = "VpnConnection";
+                        _connectionStatusValue = "VpnConnection";
                     }
                     else
                     {
                         SetConnectionIcon("VPNoff");
-                        ConnectionStatusValue = "LostVpnConnection";
+                        _connectionStatusValue = "LostVpnConnection";
                     }
                 }
             }
@@ -367,17 +379,17 @@ namespace ToftlundUI
                 case "VPNon":
                     if (Application.Current.Dispatcher.CheckAccess())
                     {
-                        NoNet!.Visibility = Visibility.Collapsed;
-                        CloudOn!.Visibility = Visibility.Visible;
-                        CloudOff!.Visibility = Visibility.Collapsed;
+                        _noNet!.Visibility = Visibility.Collapsed;
+                        _cloudOn!.Visibility = Visibility.Visible;
+                        _cloudOff!.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            NoNet!.Visibility = Visibility.Collapsed;
-                            CloudOn!.Visibility = Visibility.Visible;
-                            CloudOff!.Visibility = Visibility.Collapsed;
+                            _noNet!.Visibility = Visibility.Collapsed;
+                            _cloudOn!.Visibility = Visibility.Visible;
+                            _cloudOff!.Visibility = Visibility.Collapsed;
                         });
                     }
                     break;
@@ -385,32 +397,32 @@ namespace ToftlundUI
                 case "VPNoff":
                     if (Application.Current.Dispatcher.CheckAccess())
                     {
-                        NoNet!.Visibility = Visibility.Collapsed;
-                        CloudOn!.Visibility = Visibility.Collapsed;
-                        CloudOff!.Visibility = Visibility.Visible;
-                        if(VPNaddress != "no-vpn")
+                        _noNet!.Visibility = Visibility.Collapsed;
+                        _cloudOn!.Visibility = Visibility.Collapsed;
+                        _cloudOff!.Visibility = Visibility.Visible;
+                        if (VPNaddress != "no-vpn")
                         {
-                            CloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
+                            _cloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
                         }
                         else
                         {
-                            CloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
+                            _cloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
                         }
                     }
                     else
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            NoNet!.Visibility = Visibility.Collapsed;
-                            CloudOn!.Visibility = Visibility.Collapsed;
-                            CloudOff!.Visibility = Visibility.Visible;
+                            _noNet!.Visibility = Visibility.Collapsed;
+                            _cloudOn!.Visibility = Visibility.Collapsed;
+                            _cloudOff!.Visibility = Visibility.Visible;
                             if (VPNaddress != "no-vpn")
                             {
-                                CloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
+                                _cloudOff!.Fill = AlertForeground; // new SolidColorBrush(System.Windows.Media.Colors.Red);
                             }
                             else
                             {
-                                CloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
+                                _cloudOff!.Fill = Foreground; // new SolidColorBrush(System.Windows.Media.Colors.Black);
                             }
                         });
                     }
@@ -419,17 +431,17 @@ namespace ToftlundUI
                 default: // No connection
                     if (Application.Current.Dispatcher.CheckAccess())
                     {
-                        NoNet!.Visibility = Visibility.Visible;
-                        CloudOn!.Visibility = Visibility.Collapsed;
-                        CloudOff!.Visibility = Visibility.Collapsed;
+                        _noNet!.Visibility = Visibility.Visible;
+                        _cloudOn!.Visibility = Visibility.Collapsed;
+                        _cloudOff!.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            NoNet!.Visibility = Visibility.Visible;
-                            CloudOn!.Visibility = Visibility.Collapsed;
-                            CloudOff!.Visibility = Visibility.Collapsed;
+                            _noNet!.Visibility = Visibility.Visible;
+                            _cloudOn!.Visibility = Visibility.Collapsed;
+                            _cloudOff!.Visibility = Visibility.Collapsed;
                         });
                     }
                     break;
@@ -448,9 +460,9 @@ namespace ToftlundUI
             }
             catch
             {
-                return Task.FromResult ("no-net");
+                return Task.FromResult("no-net");
             }
-            return Task.FromResult( result);
+            return Task.FromResult(result);
         }
 
         private void PinWindow_Loaded(object sender, RoutedEventArgs e)
@@ -479,13 +491,13 @@ namespace ToftlundUI
                 Window window = Window.GetWindow(this);
                 if (window.Topmost == true)
                 {
-                    PinOn!.Visibility = Visibility.Visible;
-                    PinOff!.Visibility = Visibility.Collapsed;
+                    _pinOn!.Visibility = Visibility.Visible;
+                    _pinOff!.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    PinOn!.Visibility = Visibility.Collapsed;
-                    PinOff!.Visibility = Visibility.Visible;
+                    _pinOn!.Visibility = Visibility.Collapsed;
+                    _pinOff!.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -526,18 +538,18 @@ namespace ToftlundUI
 
         private void RefreshMaximizeRestoreButton()
         {
-            if(RemoveMaximizeRestore == false)
+            if (RemoveMaximizeRestore == false)
             {
                 Window window = Window.GetWindow(this);
                 if (window.WindowState == WindowState.Maximized)
                 {
-                    this.MaximizeImage!.Visibility = Visibility.Collapsed;
-                    this.RestoreImage!.Visibility = Visibility.Visible;
+                    this._maximizeImage!.Visibility = Visibility.Collapsed;
+                    this._restoreImage!.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    this.MaximizeImage!.Visibility = Visibility.Visible;
-                    this.RestoreImage!.Visibility = Visibility.Collapsed;
+                    this._maximizeImage!.Visibility = Visibility.Visible;
+                    this._restoreImage!.Visibility = Visibility.Collapsed;
                 }
             }
         }

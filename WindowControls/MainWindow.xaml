@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <MyNamespace:WindowControls Grid.Row="0" Background="White" OnMouseOverForeground="Red" x:Name="TitleBar"  Title="Window Control" Icon="TestIcon.ico" IconOnTaskbar="False" VPNaddress="5.103.14.2" ToggleWindowOnTop="True" RemoveMaximizeRestore="False" />
+        <MyNamespace:WindowControls Grid.Row="0" Background="White" OnMouseOverForeground="Red" x:Name="TitleBar"  Title="Window Control" Icon="TestIcon.ico" IconOnTaskbar="True" VPNaddress="5.103.14.2" ToggleWindowOnTop="True" RemoveMaximizeRestore="False" />
         <!--Icon="TestIcon.ico"-->
         <!--IconOnTaskbar="True"-->
         <!--VPNaddress="192.168.1.1"-->
