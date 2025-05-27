@@ -2,18 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ToftlundUI
 {
@@ -158,7 +149,7 @@ namespace ToftlundUI
             }
             if (ShowTimeEstimate)
             {
-                if(StatusProgressBar!.Value == 0)
+                if (StatusProgressBar!.Value == 0)
                 {
                     stopwatch.Reset();
                 }
@@ -188,8 +179,8 @@ namespace ToftlundUI
                     }
                 }
 
-                if(StatusProgressBar!.Value < StatusProgressBar.Maximum)
-                {    
+                if (StatusProgressBar!.Value < StatusProgressBar.Maximum)
+                {
                     stopwatch.Start();
                 }
             }
@@ -197,8 +188,8 @@ namespace ToftlundUI
             StatusText!.Text = StatusTextBund.Text;
 
 
-            Debug.WriteLine(StatusProgressBar!.RenderSize.ToString());
-            
+            //   Debug.WriteLine(StatusProgressBar!.RenderSize.ToString());
+
 
 
             //string renderSize = StatusProgressBar!.RenderSize.ToString().Replace(",", ".");
@@ -206,15 +197,15 @@ namespace ToftlundUI
             if (renderSize.IndexOf(';') > 0)
             {
                 //renderSize = renderSize.Replace(';', '.');
-                renderSize = renderSize.Substring(0, renderSize.IndexOf(';') );
+                renderSize = renderSize.Substring(0, renderSize.IndexOf(';'));
             }
             else if (renderSize.IndexOf(',') > 0)
             {
-                renderSize = renderSize.Substring(0, renderSize.IndexOf(',') );
+                renderSize = renderSize.Substring(0, renderSize.IndexOf(','));
             }
 
             double ProgressX = (Convert.ToDouble(renderSize) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
-           // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
+            // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
             Rect boxstørrelse = new()
             {
                 Width = ProgressX,
