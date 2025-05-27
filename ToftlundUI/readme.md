@@ -30,6 +30,9 @@ Give a ⭐️ if you like this project!
 
 ## Changelog
 
+### 1.5.0
+1. Upgraded to .NET 9
+
 ### 1.4.2
 Bugfix with size of statusbar that returned wrong from some computers
 
