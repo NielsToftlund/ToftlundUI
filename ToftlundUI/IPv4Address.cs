@@ -45,13 +45,13 @@ namespace ToftlundUI
             DefaultStyleKeyProperty.OverrideMetadata(typeof(IPv4Address), new FrameworkPropertyMetadata(typeof(IPv4Address)));
         }
 
-        TextBox? Segment1, Segment2, Segment3, Segment4, Dot1, Dot2, Dot3;
-        private static readonly List<Key> DigitKeys = [Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3, Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7, Key.NumPad8, Key.NumPad9];
-        private static readonly List<Key> MoveForwardKeys = [Key.Right];
-        private static readonly List<Key> MoveBackwardKeys = [Key.Left];
-        private static readonly List<Key> OtherAllowedKeys = [Key.Tab, Key.Delete];
+        TextBox? _segment1, _segment2, _segment3, _segment4, _dot1, _dot2, _dot3;
+        private static readonly List<Key> _digitKeys = [Key.D0, Key.D1, Key.D2, Key.D3, Key.D4, Key.D5, Key.D6, Key.D7, Key.D8, Key.D9, Key.NumPad0, Key.NumPad1, Key.NumPad2, Key.NumPad3, Key.NumPad4, Key.NumPad5, Key.NumPad6, Key.NumPad7, Key.NumPad8, Key.NumPad9];
+        private static readonly List<Key> _moveForwardKeys = [Key.Right];
+        private static readonly List<Key> _moveBackwardKeys = [Key.Left];
+        private static readonly List<Key> _otherAllowedKeys = [Key.Tab, Key.Delete];
 
-        Border? IPv4AddressBorder;
+        Border? _iPv4AddressBorder;
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -67,7 +67,7 @@ namespace ToftlundUI
         public string IPaddress
         {
             get { return (string)GetValue(IPaddressProperty); }
-            set { SetValue(IPaddressProperty, value);}
+            set { SetValue(IPaddressProperty, value); }
         }
         public static DependencyProperty IPaddressProperty
             = DependencyProperty.Register(
@@ -78,33 +78,33 @@ namespace ToftlundUI
 
         public override void OnApplyTemplate()
         {
-            _segments.Add(Segment1!);
-            _segments.Add(Segment2!);
-            _segments.Add(Segment3!);
-            _segments.Add(Segment4!);
+            _segments.Add(_segment1!);
+            _segments.Add(_segment2!);
+            _segments.Add(_segment3!);
+            _segments.Add(_segment4!);
 
-            Segment1 = GetTemplateChild("Segment1") as TextBox;
-            Segment2 = GetTemplateChild("Segment2") as TextBox;
-            Segment3 = GetTemplateChild("Segment3") as TextBox;
-            Segment4 = GetTemplateChild("Segment4") as TextBox;
-            Dot1 = GetTemplateChild("Dot1") as TextBox;
-            Dot2 = GetTemplateChild("Dot2") as TextBox;
-            Dot3 = GetTemplateChild("Dot3") as TextBox;
-            IPv4AddressBorder = GetTemplateChild("IPv4AddressBorder") as Border;
-            
+            _segment1 = GetTemplateChild("Segment1") as TextBox;
+            _segment2 = GetTemplateChild("Segment2") as TextBox;
+            _segment3 = GetTemplateChild("Segment3") as TextBox;
+            _segment4 = GetTemplateChild("Segment4") as TextBox;
+            _dot1 = GetTemplateChild("Dot1") as TextBox;
+            _dot2 = GetTemplateChild("Dot2") as TextBox;
+            _dot3 = GetTemplateChild("Dot3") as TextBox;
+            _iPv4AddressBorder = GetTemplateChild("IPv4AddressBorder") as Border;
+
             // Events
-            Segment1!.Loaded += IPv4Address_Loaded;
-            IPv4AddressBorder!.SizeChanged += IPv4Address_SizeChanged;
-            
-            Segment1!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
-            Segment2!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
-            Segment3!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
-            Segment4!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
+            _segment1!.Loaded += IPv4Address_Loaded;
+            _iPv4AddressBorder!.SizeChanged += IPv4Address_SizeChanged;
 
-            Segment1!.LostFocus += IPv4Address_LostFocus;
-            Segment2!.LostFocus += IPv4Address_LostFocus;
-            Segment3!.LostFocus += IPv4Address_LostFocus;
-            Segment4!.LostFocus += IPv4Address_LostFocus;
+            _segment1!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
+            _segment2!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
+            _segment3!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
+            _segment4!.PreviewKeyDown += IPv4Address_PreviewKeyDown;
+
+            _segment1!.LostFocus += IPv4Address_LostFocus;
+            _segment2!.LostFocus += IPv4Address_LostFocus;
+            _segment3!.LostFocus += IPv4Address_LostFocus;
+            _segment4!.LostFocus += IPv4Address_LostFocus;
         }
 
         private void IPv4Address_LostFocus(object sender, RoutedEventArgs e)
@@ -114,17 +114,17 @@ namespace ToftlundUI
 
         private void IPv4Address_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (DigitKeys.Contains(e.Key))
+            if (_digitKeys.Contains(e.Key))
             {
                 e.Handled = ShouldCancelDigitKeyPress();
                 HandleDigitPress();
             }
-            else if (MoveBackwardKeys.Contains(e.Key))
+            else if (_moveBackwardKeys.Contains(e.Key))
             {
                 e.Handled = ShouldCancelBackwardKeyPress();
                 HandleBackwardKeyPress();
             }
-            else if (MoveForwardKeys.Contains(e.Key))
+            else if (_moveForwardKeys.Contains(e.Key))
             {
                 e.Handled = ShouldCancelForwardKeyPress();
                 HandleForwardKeyPress();
@@ -168,26 +168,26 @@ namespace ToftlundUI
                 BorderBrush = new SolidColorBrush(Colors.Red)
             };
 
-            Segment2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
-            Segment3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
-            Dot1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
-            Dot2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
-            Dot3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _segment2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _segment3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _dot1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _dot2!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _dot3!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
 
-            Segment1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
-            Segment4!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(RightSideCornerRadius));
+            _segment1!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(LeftSideCornerRadius));
+            _segment4!.SetValue(TemplateProperty, GetRoundedTextBoxTemplate(RightSideCornerRadius));
 
             if (IPaddress != "")
             {
                 string[] SegmentIP = IPaddress.Split(".");
                 if (SegmentIP[0].IsNumeric() && SegmentIP[1].IsNumeric() && SegmentIP[2].IsNumeric() && SegmentIP[3].IsNumeric())
                 {
-                    Segment1!.Text = SegmentIP[0];
-                    Segment2!.Text = SegmentIP[1];
-                    Segment3!.Text = SegmentIP[2];
-                    Segment4!.Text = SegmentIP[3];
+                    _segment1!.Text = SegmentIP[0];
+                    _segment2!.Text = SegmentIP[1];
+                    _segment3!.Text = SegmentIP[2];
+                    _segment4!.Text = SegmentIP[3];
                 }
-             
+
             }
             ValidateIP();
         }
@@ -198,61 +198,61 @@ namespace ToftlundUI
                 candidate,
                 CultureInfo.CurrentCulture,
                 FlowDirection.LeftToRight,
-                new Typeface(Segment1!.FontFamily, Segment1!.FontStyle, Segment1.FontWeight, Segment1.FontStretch),
-                Segment1.FontSize,
+                new Typeface(_segment1!.FontFamily, _segment1!.FontStyle, _segment1.FontWeight, _segment1.FontStretch),
+                _segment1.FontSize,
                 Brushes.Black,
                 new NumberSubstitution(),
-                VisualTreeHelper.GetDpi(Segment1).PixelsPerDip);
+                VisualTreeHelper.GetDpi(_segment1).PixelsPerDip);
 
-            Segment1!.Width = formattedText.Width + 5;
-            Segment2!.Width = formattedText.Width + 5;
-            Segment3!.Width = formattedText.Width + 5;
-            Segment4!.Width = formattedText.Width + 5;
+            _segment1!.Width = formattedText.Width + 5;
+            _segment2!.Width = formattedText.Width + 5;
+            _segment3!.Width = formattedText.Width + 5;
+            _segment4!.Width = formattedText.Width + 5;
         }
 
         //public static bool IsNumeric(this string text) => double.TryParse(text, out _);
 
         private void ValidateIP()
         {
-            string TempIPaddress = Segment1!.Text + "." + Segment2!.Text + "." + Segment3!.Text + "." + Segment4!.Text;
+            string TempIPaddress = _segment1!.Text + "." + _segment2!.Text + "." + _segment3!.Text + "." + _segment4!.Text;
             string[] SegmentIP = TempIPaddress.Split(".");
             if (SegmentIP[0].IsNumeric() && SegmentIP[1].IsNumeric() && SegmentIP[2].IsNumeric() && SegmentIP[3].IsNumeric())
             {
                 if (Convert.ToInt32(SegmentIP[0]) > 255 || (Convert.ToInt32(SegmentIP[0]) < 0))
                 {
-                    Segment1!.Background = new SolidColorBrush(Colors.Red);
+                    _segment1!.Background = new SolidColorBrush(Colors.Red);
                     IPaddress = "";
                 }
                 else
                 {
-                    Segment1!.Background = new SolidColorBrush(Colors.Transparent);
+                    _segment1!.Background = new SolidColorBrush(Colors.Transparent);
                 }
                 if (Convert.ToInt32(SegmentIP[1]) > 255 || (Convert.ToInt32(SegmentIP[1]) < 0))
                 {
-                    Segment2!.Background = new SolidColorBrush(Colors.Red);
+                    _segment2!.Background = new SolidColorBrush(Colors.Red);
                     IPaddress = "";
                 }
                 else
                 {
-                    Segment2!.Background = new SolidColorBrush(Colors.Transparent);
+                    _segment2!.Background = new SolidColorBrush(Colors.Transparent);
                 }
                 if (Convert.ToInt32(SegmentIP[2]) > 255 || (Convert.ToInt32(SegmentIP[2]) < 0))
                 {
-                    Segment3!.Background = new SolidColorBrush(Colors.Red);
+                    _segment3!.Background = new SolidColorBrush(Colors.Red);
                     IPaddress = "";
                 }
                 else
                 {
-                    Segment3!.Background = new SolidColorBrush(Colors.Transparent);
+                    _segment3!.Background = new SolidColorBrush(Colors.Transparent);
                 }
                 if (Convert.ToInt32(SegmentIP[3]) > 255 || (Convert.ToInt32(SegmentIP[3]) < 0))
                 {
-                    Segment4!.Background = new SolidColorBrush(Colors.Red);
+                    _segment4!.Background = new SolidColorBrush(Colors.Red);
                     IPaddress = "";
                 }
                 else
                 {
-                    Segment4!.Background = new SolidColorBrush(Colors.Transparent);
+                    _segment4!.Background = new SolidColorBrush(Colors.Transparent);
                 }
             }
             else
@@ -335,7 +335,7 @@ namespace ToftlundUI
 
         private void MoveFocusToPreviousSegment(TextBox currentTextBox)
         {
-            if (!ReferenceEquals(currentTextBox, Segment1!))
+            if (!ReferenceEquals(currentTextBox, _segment1!))
             {
                 var previousSegmentIndex = _segments.FindIndex(box => ReferenceEquals(box, currentTextBox)) - 1;
                 currentTextBox.SelectionLength = 0;
@@ -348,7 +348,7 @@ namespace ToftlundUI
 
         private void MoveFocusToNextSegment(TextBox currentTextBox)
         {
-            if (!ReferenceEquals(currentTextBox, Segment4!))
+            if (!ReferenceEquals(currentTextBox, _segment4!))
             {
                 currentTextBox.SelectionLength = 0;
                 currentTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
@@ -397,7 +397,7 @@ namespace ToftlundUI
                    e.Key == Key.V && ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0) ||
                    e.Key == Key.A && ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0) ||
                    e.Key == Key.X && ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) != 0) ||
-                   OtherAllowedKeys.Contains(e.Key);
+                   _otherAllowedKeys.Contains(e.Key);
         }
 
 

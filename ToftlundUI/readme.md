@@ -14,7 +14,7 @@ For instructions on how to use see the [Github Wiki](https://github.com/NielsTof
 
 ## Built With
 - C#
-- .NET 8.0
+- .NET 9.0
 
 ## Author
 **Niels Bjerkstad Toftlund**
@@ -29,6 +29,8 @@ Contributions, issues, and feature requests are welcome!
 Give a ⭐️ if you like this project!
 
 ## Changelog
+### 1.5.2
+Added ProgressDataObject in Satatusbar for easy code in projects
 
 ### 1.5.0
 1. Upgraded to .NET 9

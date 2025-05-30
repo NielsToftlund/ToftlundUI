@@ -39,17 +39,25 @@ namespace ToftlundUI
     /// </summary>
     public class StatusBar : ProgressBar
     {
+        public class ProgressDataObject
+        {
+            public double Værdi { get; set; }
+            public double Maximum { get; set; }
+            public string TekstPåProgressbaren { get; set; } = string.Empty;
+            public bool VisVærdier { get; set; } = false;
+
+        }
         static StatusBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBar), new FrameworkPropertyMetadata(typeof(StatusBar)));
         }
 
-        readonly Stopwatch stopwatch = new();
-        readonly List<double> Tider = [];
+        readonly Stopwatch _stopwatch = new();
+        readonly List<double> _tider = [];
 
-        ProgressBar? StatusProgressBar;
-        RectangleGeometry? Blockbox;
-        TextBlock? StatusTextBund, StatusText;
+        ProgressBar? _statusProgressBar;
+        RectangleGeometry? _blockbox;
+        TextBlock? _statusTextBund, _statusText;
 
         public string TextOnStatusBar
         {
@@ -113,14 +121,14 @@ namespace ToftlundUI
 
         public override void OnApplyTemplate()
         {
-            StatusProgressBar = GetTemplateChild("StatusProgressBar") as ProgressBar;
-            Blockbox = GetTemplateChild("Blockbox") as RectangleGeometry;
-            StatusText = GetTemplateChild("StatusText") as TextBlock;
-            StatusTextBund = GetTemplateChild("StatusTextBund") as TextBlock;
+            _statusProgressBar = GetTemplateChild("StatusProgressBar") as ProgressBar;
+            _blockbox = GetTemplateChild("Blockbox") as RectangleGeometry;
+            _statusText = GetTemplateChild("StatusText") as TextBlock;
+            _statusTextBund = GetTemplateChild("StatusTextBund") as TextBlock;
             // Events
-            StatusProgressBar!.ValueChanged += StatusProgressBar_ValueChanged;
-            StatusProgressBar!.Loaded += StatusBar_Loaded;
-            StatusProgressBar!.SizeChanged += StatusBar_SizeChanged;
+            _statusProgressBar!.ValueChanged += StatusProgressBar_ValueChanged;
+            _statusProgressBar!.Loaded += StatusBar_Loaded;
+            _statusProgressBar!.SizeChanged += StatusBar_SizeChanged;
 
         }
 
@@ -132,7 +140,7 @@ namespace ToftlundUI
         private void StatusBar_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshView();
-            stopwatch.Reset(); // Stop og nulstil
+            _stopwatch.Reset(); // Stop og nulstil
         }
 
         private void StatusProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -142,58 +150,52 @@ namespace ToftlundUI
 
         private void RefreshView()
         {
-            StatusTextBund!.Text = TextOnStatusBar;
+            _statusTextBund!.Text = TextOnStatusBar;
             if (ShowProgressNumber)
             {
-                StatusTextBund!.Text = StatusTextBund!.Text + " " + StatusProgressBar!.Value + "/" + StatusProgressBar.Maximum;
+                _statusTextBund!.Text = _statusTextBund!.Text + " " + _statusProgressBar!.Value + "/" + _statusProgressBar.Maximum;
             }
             if (ShowTimeEstimate)
             {
-                if (StatusProgressBar!.Value == 0)
+                if (_statusProgressBar!.Value == 0)
                 {
-                    stopwatch.Reset();
+                    _stopwatch.Reset();
                 }
-                if (stopwatch.IsRunning)
+                if (_stopwatch.IsRunning)
                 {
-                    stopwatch.Stop();
-                    Tider.Add(stopwatch.Elapsed.TotalSeconds);
-                    stopwatch.Reset();
-                    TimeSpan TidTilbage = TimeSpan.FromSeconds(Tider.Average() * (StatusProgressBar!.Maximum - StatusProgressBar!.Value));
+                    _stopwatch.Stop();
+                    _tider.Add(_stopwatch.Elapsed.TotalSeconds);
+                    _stopwatch.Reset();
+                    TimeSpan TidTilbage = TimeSpan.FromSeconds(_tider.Average() * (_statusProgressBar!.Maximum - _statusProgressBar!.Value));
                     if (TidTilbage.TotalSeconds > 3600)
                     {
-                        StatusTextBund!.Text = StatusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalHours) + " Timer";
+                        _statusTextBund!.Text = _statusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalHours) + " Timer";
                     }
                     else
                     {
                         if (TidTilbage.TotalSeconds > 60)
                         {
-                            StatusTextBund!.Text = StatusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalMinutes) + " minutter";
+                            _statusTextBund!.Text = _statusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalMinutes) + " minutter";
                         }
                         else
                         {
                             if (TidTilbage.TotalSeconds > 0)
                             {
-                                StatusTextBund!.Text = StatusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalSeconds) + " sekunder";
+                                _statusTextBund!.Text = _statusTextBund!.Text + " ≈ " + Math.Ceiling(TidTilbage.TotalSeconds) + " sekunder";
                             }
                         }
                     }
                 }
 
-                if (StatusProgressBar!.Value < StatusProgressBar.Maximum)
+                if (_statusProgressBar!.Value < _statusProgressBar.Maximum)
                 {
-                    stopwatch.Start();
+                    _stopwatch.Start();
                 }
             }
 
-            StatusText!.Text = StatusTextBund.Text;
-
-
-            //   Debug.WriteLine(StatusProgressBar!.RenderSize.ToString());
-
-
-
+            _statusText!.Text = _statusTextBund.Text;
             //string renderSize = StatusProgressBar!.RenderSize.ToString().Replace(",", ".");
-            string renderSize = StatusProgressBar!.RenderSize.ToString();
+            string renderSize = _statusProgressBar!.RenderSize.ToString();
             if (renderSize.IndexOf(';') > 0)
             {
                 //renderSize = renderSize.Replace(';', '.');
@@ -204,7 +206,7 @@ namespace ToftlundUI
                 renderSize = renderSize.Substring(0, renderSize.IndexOf(','));
             }
 
-            double ProgressX = (Convert.ToDouble(renderSize) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
+            double ProgressX = (Convert.ToDouble(renderSize) / _statusProgressBar.Maximum) * _statusProgressBar.Value;
             // double ProgressX = (Convert.ToDouble(StatusProgressBar!.RenderSize.ToString().Replace(",", ".")) / StatusProgressBar.Maximum) * StatusProgressBar.Value;
             Rect boxstørrelse = new()
             {
@@ -212,7 +214,7 @@ namespace ToftlundUI
                 Height = 50,
                 X = 0
             };
-            Blockbox!.Rect = boxstørrelse;
+            _blockbox!.Rect = boxstørrelse;
         }
     }
 }
