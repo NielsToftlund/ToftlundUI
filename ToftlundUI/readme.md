@@ -29,6 +29,9 @@ Contributions, issues, and feature requests are welcome!
 Give a ⭐️ if you like this project!
 
 ## Changelog
+1.5.3
+Added VisTidsEstimat in ProgressDataObject
+
 ### 1.5.2
 Added ProgressDataObject in Satatusbar for easy code in projects
 
