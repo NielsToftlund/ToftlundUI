@@ -45,6 +45,7 @@ namespace ToftlundUI
             public double Maximum { get; set; }
             public string TekstPåProgressbaren { get; set; } = string.Empty;
             public bool VisVærdier { get; set; } = false;
+            public bool VisTidsEstimat { get; set; } = false;
 
         }
         static StatusBar()
