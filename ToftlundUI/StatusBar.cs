@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -39,6 +41,87 @@ namespace ToftlundUI
     /// </summary>
     public class StatusBar : ProgressBar
     {
+        public partial class ProgressData : INotifyPropertyChanged
+        {
+            private double _værdi = 0;
+            public double Værdi
+            {
+                get { return _værdi; }
+                set
+                {
+                    _værdi = value;
+                    OnPropertyChanged(nameof(Værdi));
+                }
+            }
+            private double _maximum = 100;
+            public double Maximum
+            {
+                get { return _maximum; }
+                set
+                {
+                    _maximum = value;
+                    OnPropertyChanged(nameof(Maximum));
+                }
+            }
+            private string _tekstPåProgressbaren = string.Empty;
+            public string TekstPåProgressbaren
+            {
+                get { return _tekstPåProgressbaren; }
+                set
+                {
+                    _tekstPåProgressbaren = value;
+                    OnPropertyChanged(nameof(TekstPåProgressbaren));
+                }
+            }
+            private bool _visVærdier = false;
+            public bool VisVærdier
+            {
+                get { return _visVærdier; }
+                set
+                {
+                    _visVærdier = value;
+                    OnPropertyChanged(nameof(VisVærdier));
+                }
+            }
+            private bool _visTidsEstimat = false;
+            public bool VisTidsEstimat
+            {
+                get { return _visTidsEstimat; }
+                set
+                {
+                    _visTidsEstimat = value;
+                    OnPropertyChanged(nameof(VisTidsEstimat));
+                }
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+            public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+
+
+        }
+
+        public class Base : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            public void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         public class ProgressDataObject
         {
             public double Værdi { get; set; }
@@ -218,4 +301,10 @@ namespace ToftlundUI
             _blockbox!.Rect = boxstørrelse;
         }
     }
+
+
+
+
+
+
 }

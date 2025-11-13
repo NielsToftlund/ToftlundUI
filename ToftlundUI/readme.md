@@ -29,6 +29,15 @@ Contributions, issues, and feature requests are welcome!
 Give a ⭐️ if you like this project!
 
 ## Changelog
+1.6.0
+Upgraded to .NET 10
+
+1.5.6
+Bugfix
+
+1.5.4
+Added ProgressData : INotifyPropertyChanged
+
 1.5.3
 Added VisTidsEstimat in ProgressDataObject
 
